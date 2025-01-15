@@ -1,0 +1,24 @@
+src/  
+│  
+├── components/    # Reusable components (e.g., Header, Footer, Form)  
+├── pages/         # Page-level components (MainPage, AboutPage, ContactPage)  
+├── assets/        # Images, fonts, and other static files  
+├── styles/        # Global and component-specific styles  
+├── utils/         # Utility functions (e.g., form validation, API requests)  
+├── App.js         # Main app component  
+├── index.js       # Entry point  
+└── services/      # API service functions  
+
+
+server/  
+│  
+├── controllers/   # Logic for handling API requests  
+├── models/        # Database schemas (if needed)  
+├── routes/        # API route definitions  
+├── services/      # Email and other external services  
+├── utils/         # Utility functions (e.g., input validation)  
+├── app.js         # Main server setup  
+├── config/        # Configuration files (e.g., environment variables)  
+└── server.js      # Entry point  
+
+
