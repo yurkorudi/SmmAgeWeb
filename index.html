@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SMMAGE</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: white;
+      background-color: black;
+    }
+    header, section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .hero {
+      background-color: #111;
+    }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .grid-item {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .grid-item h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    footer {
+      background-color: #111;
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 32px;
+      }
+      .section-title {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>SMMAGE</h1>
+    <p>Агентство з просування у соцмережах для малого та середнього бізнесу</p>
+  </header>
+
+  <section>
+    <h2 class="section-title">Наші послуги</h2>
+    <div class="grid">
+      <div class="grid-item">
+        <h3>Створення контенту</h3>
+        <p>Фото, відео, тексти — усе під ключ.</p>
+      </div>
+      <div class="grid-item">
+        <h3>Таргетована реклама</h3>
+        <p>Налаштування реклами у Facebook, Instagram, TikTok.</p>
+      </div>
+      <div class="grid-item">
+        <h3>Аналітика</h3>
+        <p>Звіти, аналіз аудиторії, ефективності кампаній.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Чому ми?</h2>
+    <div class="grid">
+      <div class="grid-item">
+        <h3>Індивідуальний підхід</h3>
+        <p>Ми адаптуємось до потреб саме вашого бізнесу.</p>
+      </div>
+      <div class="grid-item">
+        <h3>Креативність</h3>
+        <p>Сучасний стиль, який виділяє вас серед конкурентів.</p>
+      </div>
+      <div class="grid-item">
+        <h3>Результати</h3>
+        <p>Фокус на збільшенні продажів і впізнаваності бренду.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Зв'язок з нами</h2>
+    <p>Email: hello@smmage.agency</p>
+    <p>Instagram: @smmage.agency</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 SMMAGE. Усі права захищено.</p>
+  </footer>
+</body>
+</html>
