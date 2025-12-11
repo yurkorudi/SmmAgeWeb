@@ -1,11 +1,12 @@
 
 header {
-    width: 100%;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
+    width: calc(100% - 40px);
+    padding: 5px;
+    margin: 20px 15px;
     position: fixed;
     top: 0;
     left: 0;
+    backdrop-filter: blur(6px);
     z-index: 1;
 }
 
