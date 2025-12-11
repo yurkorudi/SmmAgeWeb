@@ -27,7 +27,7 @@ function resize() {
 resize();
 window.addEventListener("resize", resize);
 
-const TOTAL = 300;
+const TOTAL = 500;
 const radius = 300;
 const particles = [];
 const mouse = { x: null, y: null };
@@ -37,7 +37,6 @@ window.addEventListener("mousemove", e => {
   mouse.y = e.clientY;
 });
 
-
 for (let i = 0; i < TOTAL; i++) {
   const homeX = Math.random() * canvas.width;
   const homeY = Math.random() * canvas.height;
@@ -46,9 +45,11 @@ for (let i = 0; i < TOTAL; i++) {
     y: homeY,
     homeX,
     homeY,
-    vx: (Math.random() - 0.5) * 0.5,
-    vy: (Math.random() - 0.5) * 0.5,
-    s: Math.random() * 3 + 1
+    vx: (Math.random() - 0.5) * 0.2, // дуже повільний дрейф
+    vy: (Math.random() - 0.5) * 0.2,
+    s: Math.random() * 3 + 1,
+    offsetX: Math.random() * 1000,
+    offsetY: Math.random() * 1000
   });
 }
 
@@ -60,33 +61,37 @@ function draw() {
   ctx.fillStyle = "rgba(0,0,0,0.2)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  particles.forEach(p => {
+  const time = Date.now() * 0.002;
 
+  particles.forEach(p => {
+    // дуже повільні коливання навколо home
+    const driftX = Math.sin(time + p.offsetX) * 0.2; // маленька амплітуда
+    const driftY = Math.cos(time + p.offsetY) * 0.2;
+
+    // основна логіка притягування до мишки або повернення на home
     if (mouse.x !== null) {
       const dx = mouse.x - p.x;
       const dy = mouse.y - p.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
 
       if (dist < radius) {
-
-        p.x = lerp(p.x, mouse.x, 0.001); 
-        p.y = lerp(p.y, mouse.y, 0.001);
+        // дуже повільне притягування до мишки
+        p.x = lerp(p.x, mouse.x, 0.001) + driftX;
+        p.y = lerp(p.y, mouse.y, 0.001) + driftY;
       } else {
-
-        p.x = lerp(p.x, p.homeX, 0.02);
-        p.y = lerp(p.y, p.homeY, 0.02);
+        p.x = lerp(p.x, p.homeX, 0.02) + driftX;
+        p.y = lerp(p.y, p.homeY, 0.02) + driftY;
       }
     } else {
-
-      p.x = lerp(p.x, p.homeX, 0.02);
-      p.y = lerp(p.y, p.homeY, 0.02);
+      p.x = lerp(p.x, p.homeX, 0.02) + driftX;
+      p.y = lerp(p.y, p.homeY, 0.02) + driftY;
     }
 
-
+    // дуже повільний власний дрейф
     p.x += p.vx;
     p.y += p.vy;
 
-
+    // плавне загасання дрейфу
     p.vx *= 0.98;
     p.vy *= 0.98;
 
@@ -100,6 +105,8 @@ function draw() {
 }
 
 draw();
+
+
 
 
 </script>
