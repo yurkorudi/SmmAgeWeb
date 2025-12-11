@@ -28,7 +28,7 @@ resize();
 window.addEventListener("resize", resize);
 
 const TOTAL = 300;
-const radius = 300; // радіус взаємодії з мишкою
+const radius = 300;
 const particles = [];
 const mouse = { x: null, y: null };
 
@@ -37,7 +37,7 @@ window.addEventListener("mousemove", e => {
   mouse.y = e.clientY;
 });
 
-// створення частинок
+
 for (let i = 0; i < TOTAL; i++) {
   const homeX = Math.random() * canvas.width;
   const homeY = Math.random() * canvas.height;
@@ -61,32 +61,32 @@ function draw() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   particles.forEach(p => {
-    // визначаємо напрямок: мишка або home
+
     if (mouse.x !== null) {
       const dx = mouse.x - p.x;
       const dy = mouse.y - p.y;
       const dist = Math.sqrt(dx*dx + dy*dy);
 
       if (dist < radius) {
-        // плавне притягування до миші
+
         p.x = lerp(p.x, mouse.x, 0.001); 
         p.y = lerp(p.y, mouse.y, 0.001);
       } else {
-        // повертатися на home
+
         p.x = lerp(p.x, p.homeX, 0.02);
         p.y = lerp(p.y, p.homeY, 0.02);
       }
     } else {
-      // якщо мишки немає — повернення на home
+
       p.x = lerp(p.x, p.homeX, 0.02);
       p.y = lerp(p.y, p.homeY, 0.02);
     }
 
-    // невелике власне дрейфування навколо поточної позиції
+
     p.x += p.vx;
     p.y += p.vy;
 
-    // трохи загасання швидкості
+
     p.vx *= 0.98;
     p.vy *= 0.98;
 
