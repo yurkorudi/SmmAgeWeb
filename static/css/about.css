@@ -1,0 +1,15 @@
+body {
+  background: black; /* стартує з чорного */
+  opacity: 0;
+  animation: fadeFromBlack 1.2s ease-out forwards;
+}
+
+@keyframes fadeFromBlack {
+  0% {
+    opacity: 0;
+    background: black;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,49 @@
+html, body {
+  margin: 0;
+  background: black;
+}
+
+
+body.fade {
+  opacity: 0;
+  animation: fadeInPage 1.2s ease forwards;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+
+html, body {
+background-color: black;
+margin: 0;
+padding: 0;
+height: 100%;
+overflow-x: hidden;
+overflow-y: hidden;
+font-family: Arial, sans-serif;
+animation: fadeIn 1s ease-out forwards;
+}
+
+canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+filter: blur(8px);
+z-index: 0;
+}
+
+
+
+
+
+
+@media(max-width: 600px){
+.content h1 { font-size: 26px; }
+.content p { font-size: 16px; }
+.content { top: 90px; }
+}
