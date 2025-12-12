@@ -2,18 +2,66 @@
 <html lang="uk">
 <link rel="stylesheet" href="/static/css/base.css">
 <link rel="stylesheet" href="/static/css/homepage.css">
-<body class="fade">
+<body class="fade homepage-page">
 <canvas id="c"></canvas>
 
-    {% include 'header.html' %}
+{% include 'header.html' %}
 
-    <main>
+  <main>
+    <section class="hero">
+        <h1>Ми створюємо контент, який дивляться, лайкають і запам’ятовують</h1>
+        <p>Повний супровід соцмереж: від стратегії до вірусних відео</p>
+        <a href="#services" class="cta">Обговорити проєкт</a>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Що ми робимо</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <h3>Стратегія бренду</h3>
+                <p>Аналіз ніші, позиціонування, tone of voice, контент-план.</p>
+            </div>
+            <div class="service-item">
+                <h3>Контент-виробництво</h3>
+                <p>Фото, відео, сторіс, сценарії, монтаж, айдентика.</p>
+            </div>
+            <div class="service-item">
+                <h3>Менеджмент соцмереж</h3>
+                <p>Пости, сторіс, модерація коментарів, репутація.</p>
+            </div>
+            <div class="service-item">
+                <h3>Таргетована реклама</h3>
+                <p>Запуск кампаній, оптимізація, таргет на продажі.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cases">
+        <h2>Наші результати</h2>
+        <div class="cases-grid">
+            <div class="case-item">+250% охоплення за 3 місяці</div>
+            <div class="case-item">1.2M переглядів на TikTok</div>
+            <div class="case-item">40+ лідів щомісяця</div>
+            <div class="case-item">300% ріст продажів</div>
+        </div>
+    </section>
+
+    <section class="why-us">
+        <h2>Чому ми?</h2>
+        <ul>
+            <li>Працюємо швидко, адаптуємось до трендів</li>
+            <li>Прозора звітність і зрозуміла стратегія</li>
+            <li>Креатив, який виглядає дорого</li>
+            <li>Фокус на продажах і цілях бізнесу</li>
+        </ul>
+    </section>
 
 
-    </main>
+
+  </main>
 
 
-    {% include 'footer.html' %}
+{% include 'footer.html' %}
 
 
 <script src="/static/js/animation.js"></script>

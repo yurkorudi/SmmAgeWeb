@@ -1,5 +1,6 @@
 .content {
 position: relative;
+display: flex;
 z-index: 1;
 color: white;
 padding: 50px;
@@ -9,13 +10,165 @@ text-align: center;
 
 
 main {
-min-height: 100vh;
 min-width: 100vw;
 z-index: 1;
 }
 
+
+main, .hero, .services, .cases, .why-us {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    width: 100%;
+    color: white;
+}
+
+
+.hero {
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 46px;
+    max-width: 900px;
+    line-height: 1.2;
+}
+
+.hero p {
+    margin-top: 15px;
+    font-size: 20px;
+    opacity: 0.85;
+}
+
+.cta {
+    margin-top: 30px;
+    padding: 14px 30px;
+    border: 1px solid white;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.cta:hover {
+    background: white;
+    color: black;
+}
+
+
+.services {
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.service-item {
+    padding: 25px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+/* ===== CASES ===== */
+.cases {
+    padding: 100px 40px;
+    text-align: center;
+}
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.case-item {
+    padding: 25px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+}
+
+
+.why-us {
+    padding: 100px 40px;
+}
+
+.why-us ul {
+    margin-top: 20px;
+    line-height: 2.2;
+    font-size: 20px;
+}
+
+.services, .cases, .why-us {
+  min-height: 50vh;
+  padding: 100px 40px;
+}
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.hero, .services, .cases, .why-us,
+.cta, .service-item, .case-item,
+header *, main *, footer * {
+  pointer-events: auto;
+  position: relative;
+}
+
+
+header {
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+@media(max-width: 900px) {
+    .services-grid,
+    .cases-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+
 @media(max-width: 600px){
-.content h1 { font-size: 26px; }
-.content p { font-size: 16px; }
-.content { top: 90px; }
+    .content h1 { font-size: 26px; }
+    .content p { font-size: 16px; }
+    .content { top: 90px; }
+
+        .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .services-grid,
+    .cases-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
 }
