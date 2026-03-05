@@ -1,79 +1,77 @@
-.content {
-position: relative;
-display: flex;
-z-index: 1;
-color: white;
-padding: 50px;
-text-align: center;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
-
-
-main {
-min-width: 100vw;
-z-index: 1;
-}
-
-
-main, .hero, .services, .cases, .why-us {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    width: 100%;
-    color: white;
-}
-
-
-.hero {
-    width: 100%;
-    height: 85vh;
+body {
     display: flex;
     flex-direction: column;
+}
+
+section{
+    margin-bottom: 50px;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    filter: blur(5px);
+}
+
+main {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    z-index: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+main .section-title{
+    margin: 20px;
+    text-align: center;
+    font-size: x-large 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    letter-spacing: 0.4rem;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}   
+
+.presents{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.presents div:nth-child(4) {
+    grid-column: 1 / span 1;
+    justify-self: end;
+}
+
+.presents div:nth-child(5) {
+    grid-column: 3 / span 1;
+    justify-self: start;
+}
+
+.oprtunity{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 0 20px;
-}
-
-.hero h1 {
-    font-size: 46px;
-    max-width: 900px;
-    line-height: 1.2;
-}
-
-.hero p {
-    margin-top: 15px;
-    font-size: 20px;
-    opacity: 0.85;
-}
-
-.cta {
-    margin-top: 30px;
-    padding: 14px 30px;
-    border: 1px solid white;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.cta:hover {
-    background: white;
-    color: black;
-}
-
-
-.services {
-    padding: 100px 40px;
-    text-align: center;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-top: 40px;
 }
 
 .service-item {
@@ -149,26 +147,54 @@ header {
 
 
 
-@media(max-width: 600px){
-    .content h1 { font-size: 26px; }
-    .content p { font-size: 16px; }
-    .content { top: 90px; }
+.oprtunity img{
+    width: 160px;
+    height: 160px;
+}
 
-        .hero h1 {
-        font-size: 28px;
-    }
+.propose_text{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+}
 
-    .hero p {
-        font-size: 16px;
-    }
+.propose_text h1{
+    font-size: 20px;
+}
 
-    .services-grid,
-    .cases-grid {
-        grid-template-columns: 1fr;
-    }
+.propose_text h1,
+.propose_text p{
+    margin: 0px;
+}
 
-    .cta {
-        font-size: 16px;
-        padding: 12px 25px;
-    }
+.our-works{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.our-works > :nth-child(odd) {
+  justify-self: start;
+}
+
+.our-works > :nth-child(even) {
+  justify-self: end;
+}
+
+.work{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.work:nth-child(even) .photo-colage img:last-child {
+  grid-column: 2;
+}
+
+.work img{
+    width: 360px;
+    height: 260px;
+    object-fit: cover;
 }
