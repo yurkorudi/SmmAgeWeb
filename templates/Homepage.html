@@ -11,7 +11,7 @@
     <section class="hero">
         <h1>Ми створюємо контент, який дивляться, лайкають і запам’ятовують</h1>
         <p>Повний супровід соцмереж: від стратегії до вірусних відео</p>
-        <a href="#services" class="cta">Обговорити проєкт</a>
+        <a href="#contact-us" class="cta">Обговорити проєкт</a>
     </section>
 
     <section id="services" class="services">
@@ -55,6 +55,46 @@
             <li>Фокус на продажах і цілях бізнесу</li>
         </ul>
     </section>
+
+
+    <section id='contact-us' class="contact-us">
+        <h2>Обговорити проект</h2>
+        <form class="contact-form" method="POST" action="/send-request">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" name="name" required>
+                    <label>Ваше ім’я</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" name="phone" required>
+                    <label>Телефон / Telegram</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="business">
+                <label>Ніша / бізнес</label>
+            </div>
+
+            <div class="form-group">
+                <textarea name="message" rows="4" required></textarea>
+                <label>Коротко про задачу</label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Надіслати заявку
+            </button>
+
+            <div class="form-success">
+                Дякуємо! Ми зв’яжемось з вами найближчим часом 🚀
+            </div>
+        </form>
+</section>
+
+
+
 
 
 
