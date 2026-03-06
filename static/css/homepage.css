@@ -69,7 +69,7 @@ main, .hero, .services, .cases, .why-us {
 
 
 .services {
-    padding: 100px 40px;
+    align-self: center;
     text-align: center;
 }
 
@@ -89,7 +89,7 @@ main, .hero, .services, .cases, .why-us {
 
 /* ===== CASES ===== */
 .cases {
-    padding: 100px 40px;
+    align-self: center;
     text-align: center;
 }
 
@@ -108,7 +108,8 @@ main, .hero, .services, .cases, .why-us {
 
 
 .why-us {
-    padding: 100px 40px;
+    top: 100px;
+    left: 50px;
 }
 
 .why-us ul {
@@ -119,7 +120,7 @@ main, .hero, .services, .cases, .why-us {
 
 .services, .cases, .why-us {
   min-height: 50vh;
-  padding: 100px 40px;
+  margin-top: 50px;
 }
 
 .hero {
