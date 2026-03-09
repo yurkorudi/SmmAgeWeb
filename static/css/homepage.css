@@ -12,10 +12,13 @@ body {
     flex-direction: column;
 }
 
-html {
-	scroll-behavior: smooth;
+section {
+    margin-bottom: 50px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 canvas {
     position: fixed;
@@ -38,7 +41,7 @@ main {
     box-sizing: border-box;
 }
 
-main .section-title{
+main .section-title {
     margin: 20px;
     text-align: center;
     font-size: x-large 20px;
@@ -49,9 +52,9 @@ main .section-title{
 
 ::-webkit-scrollbar {
     display: none;
-}   
+}
 
-.presents{
+.presents {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -70,47 +73,47 @@ main .section-title{
     justify-self: start;
 }
 
-.oprtunity{
+.oprtunity {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.oprtunity img{
+.oprtunity img {
     width: 160px;
     height: 160px;
 }
 
-
-.services {
-    align-self: center;
-    text-align: center;
+.propose_text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
 }
 
 h1,
-h2{
+h2 {
     margin: 0px;
 }
 
-.propose_text h1{
+.propose_text h1 {
     font-size: 20px;
 }
 
-/* ===== CASES ===== */
-.cases {
-    align-self: center;
-    text-align: center;
+.propose_text h1,
+.propose_text p {
+    margin: 0px;
 }
 
-.type img{
+.type img {
     width: 360px;
     height: 260px;
     object-fit: cover;
 }
 
 .work-type,
-.project-statistics{
+.project-statistics {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -118,48 +121,57 @@ h2{
     flex-wrap: wrap;
 }
 
-
-.why-us {
-    top: 100px;
-    left: 50px;
+.type {
+    width: 400px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(163, 160, 160, 0.2);
+    border-radius: 15px;
 }
 
-.type h2{
+.type h2 {
     margin-top: 10px;
 }
 
-.services, .cases, .why-us {
-  min-height: 50vh;
-  margin-top: 50px;
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
 }
 
-.info:nth-child(odd) .project-img{
+.info:nth-child(odd) .project-img {
     order: 1;
 }
 
-.info:nth-child(even) .project-img{
+.info:nth-child(even) .project-img {
     order: 2;
 }
 
-.info:nth-child(odd) .project-statistics{
+.info:nth-child(odd) .project-statistics {
     order: 2;
 }
 
-.info:nth-child(even) .project-statistics{
+.info:nth-child(even) .project-statistics {
     order: 1;
 }
 
-.project-img{
+.project-img {
     width: 700px;
     height: 550px;
     object-fit: cover;
 }
 
-
-
+.status img {
+    width: 100px;
+    height: 100px;
+}
 
 /* contact us */
-
 .contact-us {
     padding: 120px 40px;
     text-align: center;
@@ -187,8 +199,8 @@ h2{
 .form-group textarea {
     width: 100%;
     padding: 18px 15px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     color: white;
     font-size: 16px;
@@ -202,7 +214,7 @@ h2{
     left: 15px;
     top: 18px;
     font-size: 14px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255, 255, 255, 0.6);
     pointer-events: none;
     transition: 0.3s;
 }
@@ -211,13 +223,13 @@ h2{
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: white;
-    background: rgba(255,255,255,0.08);
+    background: rgba(255, 255, 255, 0.08);
 }
 
-.form-group input:focus + label,
-.form-group textarea:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:not(:placeholder-shown) + label {
+.form-group input:focus+label,
+.form-group textarea:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:not(:placeholder-shown)+label {
     top: -8px;
     left: 12px;
     font-size: 12px;
@@ -251,28 +263,17 @@ h2{
 }
 
 
-
-
-
-
-@media(max-width: 900px) {
-    .services-grid,
-    .cases-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-
-.status{
+.status {
     align-items: center;
     text-align: center;
 }
 
-.status a{
+.status a {
     color: rgba(0, 89, 255, 1);
     text-decoration: none;
 }
 
-.comment{
+.comment {
     padding: 20px;
     border: 2px solid white;
     margin-bottom: 25px;
@@ -287,23 +288,30 @@ h2{
     border-radius: 50px 50px 50px 0;
 }
 
-.user{
+.user {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 15px;
 }
 
-    .cta {
-        font-size: 16px;
-        padding: 12px 25px;
-    }
+.user img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
 
-        .form-row {
-        flex-direction: column;
-    }
+.cta {
+    font-size: 16px;
+    padding: 12px 25px;
+}
 
-    .contact-us {
-        padding: 80px 20px;
-    }
+.form-row {
+    flex-direction: column;
+}
+
+.contact-us {
+    padding: 80px 20px;
 }
