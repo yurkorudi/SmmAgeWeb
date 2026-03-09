@@ -12,9 +12,16 @@ body {
     flex-direction: column;
 }
 
+<<<<<<< style
 section{
     margin-bottom: 50px;
 }
+=======
+html {
+	scroll-behavior: smooth;
+}
+
+>>>>>>> main
 
 canvas {
     position: fixed;
@@ -81,11 +88,18 @@ main .section-title{
     height: 160px;
 }
 
+<<<<<<< style
 .propose_text{
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 5px;
+=======
+
+.services {
+    align-self: center;
+    text-align: center;
+>>>>>>> main
 }
 
 h1,
@@ -97,9 +111,16 @@ h2{
     font-size: 20px;
 }
 
+<<<<<<< style
 .propose_text h1,
 .propose_text p{
     margin: 0px;
+=======
+/* ===== CASES ===== */
+.cases {
+    align-self: center;
+    text-align: center;
+>>>>>>> main
 }
 
 .type img{
@@ -117,6 +138,7 @@ h2{
     flex-wrap: wrap;
 }
 
+<<<<<<< style
 .type{
     width: 400px;
     height: 350px;
@@ -127,17 +149,29 @@ h2{
     text-align: center;
     background-color: rgba(163, 160, 160, 0.2);
     border-radius: 15px;
+=======
+
+.why-us {
+    top: 100px;
+    left: 50px;
+>>>>>>> main
 }
 
 .type h2{
     margin-top: 10px;
 }
 
+<<<<<<< style
 .info{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 50px;
+=======
+.services, .cases, .why-us {
+  min-height: 50vh;
+  margin-top: 50px;
+>>>>>>> main
 }
 
 .info:nth-child(odd) .project-img{
@@ -162,9 +196,117 @@ h2{
     object-fit: cover;
 }
 
+<<<<<<< style
 .status img{
     width: 100px;
     height: 100px;
+=======
+
+
+
+/* contact us */
+
+.contact-us {
+    padding: 120px 40px;
+    text-align: center;
+}
+
+.contact-form {
+    max-width: 800px;
+    margin: 50px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-row {
+    display: flex;
+    gap: 50px;
+}
+
+.form-group {
+    position: relative;
+    flex: 1;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 18px 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    resize: none;
+}
+
+.form-group label {
+    position: absolute;
+    left: 15px;
+    top: 18px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* floating effect */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: white;
+    background: rgba(255,255,255,0.08);
+}
+
+.form-group input:focus + label,
+.form-group textarea:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 12px;
+    font-size: 12px;
+    background: black;
+    padding: 0 6px;
+    color: white;
+}
+
+.submit-btn {
+    left: 15px;
+    padding: 16px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: white;
+    color: black;
+}
+
+.form-success {
+    display: none;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #00ffcc;
+}
+
+
+
+
+
+
+@media(max-width: 900px) {
+    .services-grid,
+    .cases-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+>>>>>>> main
 }
 
 .status{
@@ -199,10 +341,25 @@ h2{
     gap: 15px;
 }
 
+<<<<<<< style
 .user img{
     width: 60px;        
     height: 60px;       
     border-radius: 50%;  
     object-fit: cover; 
     display: block;
+=======
+    .cta {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+
+        .form-row {
+        flex-direction: column;
+    }
+
+    .contact-us {
+        padding: 80px 20px;
+    }
+>>>>>>> main
 }
