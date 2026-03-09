@@ -5,6 +5,9 @@ footer {
   color: white;
   z-index: 2;
   margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  backdrop-filter: blur(6px);
 }
 
 .footer-content {

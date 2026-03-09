@@ -1,150 +1,206 @@
-.content {
-position: relative;
-display: flex;
-z-index: 1;
-color: white;
-padding: 50px;
-text-align: center;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
 }
 
-
-
-main {
-min-width: 100vw;
-z-index: 1;
+body {
+    display: flex;
+    flex-direction: column;
 }
 
+<<<<<<< style
+section{
+    margin-bottom: 50px;
+}
+=======
 html {
 	scroll-behavior: smooth;
 }
 
+>>>>>>> main
 
-main, .hero, .services, .cases, .why-us {
-    position: relative;
-    z-index: 1;
-    flex: 1;
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    color: white;
+    height: 100%;
+    z-index: -10;
+    filter: blur(5px);
 }
 
+main {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    z-index: 0;
+    height: 70vh;
+    overflow-y: auto;
+    flex: 1;
+    box-sizing: border-box;
+}
 
-.hero {
-    width: 100%;
-    height: 85vh;
+main .section-title{
+    margin: 20px;
+    text-align: center;
+    font-size: x-large 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    letter-spacing: 0.4rem;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}   
+
+.presents{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.presents div:nth-child(4) {
+    grid-column: 1 / span 1;
+    justify-self: end;
+}
+
+.presents div:nth-child(5) {
+    grid-column: 3 / span 1;
+    justify-self: start;
+}
+
+.oprtunity{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.oprtunity img{
+    width: 160px;
+    height: 160px;
+}
+
+<<<<<<< style
+.propose_text{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+=======
+
+.services {
+    align-self: center;
+    text-align: center;
+>>>>>>> main
+}
+
+h1,
+h2{
+    margin: 0px;
+}
+
+.propose_text h1{
+    font-size: 20px;
+}
+
+<<<<<<< style
+.propose_text h1,
+.propose_text p{
+    margin: 0px;
+=======
+/* ===== CASES ===== */
+.cases {
+    align-self: center;
+    text-align: center;
+>>>>>>> main
+}
+
+.type img{
+    width: 360px;
+    height: 260px;
+    object-fit: cover;
+}
+
+.work-type,
+.project-statistics{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+<<<<<<< style
+.type{
+    width: 400px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 20px;
-}
-
-.hero h1 {
-    font-size: 46px;
-    max-width: 900px;
-    line-height: 1.2;
-}
-
-.hero p {
-    margin-top: 15px;
-    font-size: 20px;
-    opacity: 0.85;
-}
-
-.cta {
-    margin-top: 30px;
-    padding: 14px 30px;
-    border: 1px solid white;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 18px;
-    transition: 0.3s;
-}
-
-.cta:hover {
-    background: white;
-    color: black;
-}
-
-
-.services {
-    align-self: center;
-    text-align: center;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.service-item {
-    padding: 25px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    backdrop-filter: blur(4px);
-}
-
-/* ===== CASES ===== */
-.cases {
-    align-self: center;
-    text-align: center;
-}
-
-.cases-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-    margin-top: 40px;
-}
-
-.case-item {
-    padding: 25px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 10px;
-}
-
+    background-color: rgba(163, 160, 160, 0.2);
+    border-radius: 15px;
+=======
 
 .why-us {
     top: 100px;
     left: 50px;
+>>>>>>> main
 }
 
-.why-us ul {
-    margin-top: 20px;
-    line-height: 2.2;
-    font-size: 20px;
+.type h2{
+    margin-top: 10px;
 }
 
+<<<<<<< style
+.info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+=======
 .services, .cases, .why-us {
   min-height: 50vh;
   margin-top: 50px;
+>>>>>>> main
 }
 
-.hero {
-  min-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.info:nth-child(odd) .project-img{
+    order: 1;
 }
 
-
-.hero, .services, .cases, .why-us,
-.cta, .service-item, .case-item,
-header *, main *, footer * {
-  pointer-events: auto;
-  position: relative;
+.info:nth-child(even) .project-img{
+    order: 2;
 }
 
-
-header {
-  position: relative !important;
-  z-index: 1000 !important;
+.info:nth-child(odd) .project-statistics{
+    order: 2;
 }
 
+.info:nth-child(even) .project-statistics{
+    order: 1;
+}
+
+.project-img{
+    width: 700px;
+    height: 550px;
+    object-fit: cover;
+}
+
+<<<<<<< style
+.status img{
+    width: 100px;
+    height: 100px;
+=======
 
 
 
@@ -250,28 +306,49 @@ header {
     .cases-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+>>>>>>> main
 }
 
+.status{
+    align-items: center;
+    text-align: center;
+}
 
+.status a{
+    color: rgba(0, 89, 255, 1);
+    text-decoration: none;
+}
 
-@media(max-width: 600px){
-    .content h1 { font-size: 26px; }
-    .content p { font-size: 16px; }
-    .content { top: 90px; }
+.comment{
+    padding: 20px;
+    border: 2px solid white;
+    margin-bottom: 25px;
+    width: 40%;
+}
 
-        .hero h1 {
-        font-size: 28px;
-    }
+.comment:nth-child(odd) {
+    border-radius: 50px 50px 0 50px;
+}
 
-    .hero p {
-        font-size: 16px;
-    }
+.comment:nth-child(even) {
+    border-radius: 50px 50px 50px 0;
+}
 
-    .services-grid,
-    .cases-grid {
-        grid-template-columns: 1fr;
-    }
+.user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
 
+<<<<<<< style
+.user img{
+    width: 60px;        
+    height: 60px;       
+    border-radius: 50%;  
+    object-fit: cover; 
+    display: block;
+=======
     .cta {
         font-size: 16px;
         padding: 12px 25px;
@@ -284,4 +361,5 @@ header {
     .contact-us {
         padding: 80px 20px;
     }
+>>>>>>> main
 }
