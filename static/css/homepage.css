@@ -260,7 +260,7 @@ h2{
     .cases-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-}
+
 
 .status{
     align-items: center;
