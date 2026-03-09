@@ -19,6 +19,9 @@ def home():
 def about():
     return render_template('About.html')
 
+
+
+
 @app.route('/contacts')
 def contacts():
     return render_template('Contacts.html')
