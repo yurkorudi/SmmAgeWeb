@@ -12,16 +12,10 @@ body {
     flex-direction: column;
 }
 
-<<<<<<< style
-section{
-    margin-bottom: 50px;
-}
-=======
 html {
 	scroll-behavior: smooth;
 }
 
->>>>>>> main
 
 canvas {
     position: fixed;
@@ -88,18 +82,10 @@ main .section-title{
     height: 160px;
 }
 
-<<<<<<< style
-.propose_text{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 5px;
-=======
 
 .services {
     align-self: center;
     text-align: center;
->>>>>>> main
 }
 
 h1,
@@ -111,16 +97,10 @@ h2{
     font-size: 20px;
 }
 
-<<<<<<< style
-.propose_text h1,
-.propose_text p{
-    margin: 0px;
-=======
 /* ===== CASES ===== */
 .cases {
     align-self: center;
     text-align: center;
->>>>>>> main
 }
 
 .type img{
@@ -138,40 +118,19 @@ h2{
     flex-wrap: wrap;
 }
 
-<<<<<<< style
-.type{
-    width: 400px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(163, 160, 160, 0.2);
-    border-radius: 15px;
-=======
 
 .why-us {
     top: 100px;
     left: 50px;
->>>>>>> main
 }
 
 .type h2{
     margin-top: 10px;
 }
 
-<<<<<<< style
-.info{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 50px;
-=======
 .services, .cases, .why-us {
   min-height: 50vh;
   margin-top: 50px;
->>>>>>> main
 }
 
 .info:nth-child(odd) .project-img{
@@ -196,11 +155,6 @@ h2{
     object-fit: cover;
 }
 
-<<<<<<< style
-.status img{
-    width: 100px;
-    height: 100px;
-=======
 
 
 
@@ -306,7 +260,6 @@ h2{
     .cases-grid {
         grid-template-columns: repeat(2, 1fr);
     }
->>>>>>> main
 }
 
 .status{
@@ -341,14 +294,6 @@ h2{
     gap: 15px;
 }
 
-<<<<<<< style
-.user img{
-    width: 60px;        
-    height: 60px;       
-    border-radius: 50%;  
-    object-fit: cover; 
-    display: block;
-=======
     .cta {
         font-size: 16px;
         padding: 12px 25px;
@@ -361,5 +306,4 @@ h2{
     .contact-us {
         padding: 80px 20px;
     }
->>>>>>> main
 }
