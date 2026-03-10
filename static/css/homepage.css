@@ -41,13 +41,32 @@ main {
     box-sizing: border-box;
 }
 
-main .section-title {
-    margin: 20px;
-    text-align: center;
+main .section-title,
+.hero h1,
+.hero p,
+.hero a {
     font-size: x-large 20px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
+}
+
+main .section-title{
+    margin: 20px;
+    text-align: center;
     letter-spacing: 0.4rem;
+}
+
+.hero h1,
+.hero p,
+.hero a{
+    letter-spacing: 0.1rem;
+}
+
+.hero a{
+    text-decoration: none;
+    color: rgba(0, 89, 255, 1);
+    margin: 0;
+    padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -81,8 +100,8 @@ main .section-title {
 }
 
 .oprtunity img {
-    width: 160px;
-    height: 160px;
+    width: 80px;
+    height: 80px;
 }
 
 .propose_text {
@@ -167,8 +186,70 @@ h2 {
 }
 
 .status img {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
+}
+
+.status {
+    align-items: center;
+    text-align: center;
+}
+
+.status h2{
+    font-size: 20px;
+    margin: 0px;
+}
+
+.status p{
+    margin: 5px;
+}
+
+.status a {
+    color: rgba(0, 89, 255, 1);
+    text-decoration: none;
+}
+
+.comment {
+    padding: 20px;
+    border: 2px solid white;
+    margin-bottom: 25px;
+    width: 40%;
+}
+
+.comment:nth-child(odd) {
+    border-radius: 50px 50px 0 50px;
+}
+
+.comment:nth-child(even) {
+    border-radius: 50px 50px 50px 0;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.user img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.cta {
+    font-size: 16px;
+    padding: 12px 25px;
+}
+
+.form-row {
+    flex-direction: column;
+}
+
+.contact-us {
+    padding: 80px 20px;
 }
 
 /* contact us */
@@ -239,7 +320,9 @@ h2 {
 }
 
 .submit-btn {
-    left: 15px;
+    align-self: center;
+    width: 100%;
+    margin-left: 24px;
     padding: 16px;
     border: 1px solid white;
     background: transparent;
@@ -260,58 +343,4 @@ h2 {
     margin-top: 15px;
     font-size: 16px;
     color: #00ffcc;
-}
-
-
-.status {
-    align-items: center;
-    text-align: center;
-}
-
-.status a {
-    color: rgba(0, 89, 255, 1);
-    text-decoration: none;
-}
-
-.comment {
-    padding: 20px;
-    border: 2px solid white;
-    margin-bottom: 25px;
-    width: 40%;
-}
-
-.comment:nth-child(odd) {
-    border-radius: 50px 50px 0 50px;
-}
-
-.comment:nth-child(even) {
-    border-radius: 50px 50px 50px 0;
-}
-
-.user {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-}
-
-.user img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-}
-
-.cta {
-    font-size: 16px;
-    padding: 12px 25px;
-}
-
-.form-row {
-    flex-direction: column;
-}
-
-.contact-us {
-    padding: 80px 20px;
 }
