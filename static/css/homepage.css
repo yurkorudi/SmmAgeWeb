@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
     font-family: Arial, sans-serif;
 }
 
@@ -13,12 +12,13 @@ body {
 }
 
 section {
-    margin-bottom: 50px;
+    margin-bottom: 100px;
+    scroll-margin-top: 100px;
 }
 
-html {
+/* html {
     scroll-behavior: smooth;
-}
+} */
 
 canvas {
     position: fixed;
@@ -27,16 +27,16 @@ canvas {
     width: 100%;
     height: 100%;
     z-index: -10;
-    filter: blur(5px);
+    /* filter: blur(5px); */
+    background: rgba(0, 0, 0, 0.6);
 }
 
 main {
+    flex: 2;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.6);
     color: white;
-    z-index: 0;
-    height: 70vh;
-    overflow-y: auto;
+    /* z-index: 0;
+    height: 90vh; */
     flex: 1;
     box-sizing: border-box;
 }
@@ -50,19 +50,19 @@ main .section-title,
     font-weight: 100;
 }
 
-main .section-title{
-    margin: 20px;
+main .section-title {
+    margin-bottom: 60px;
     text-align: center;
     letter-spacing: 0.4rem;
 }
 
 .hero h1,
 .hero p,
-.hero a{
+.hero a {
     letter-spacing: 0.1rem;
 }
 
-.hero a{
+.hero a {
     text-decoration: none;
     color: rgba(0, 89, 255, 1);
     margin: 0;
@@ -73,7 +73,8 @@ main .section-title{
     display: none;
 }
 
-.presents {
+.presents,
+.project-statistics {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -82,14 +83,18 @@ main .section-title{
     text-align: center;
 }
 
-.presents div:nth-child(4) {
+.presents div:nth-child(4),
+.project-statistics div:nth-child(4) {
     grid-column: 1 / span 1;
     justify-self: end;
+    transform: translateX(50%);
 }
 
-.presents div:nth-child(5) {
+.presents div:nth-child(5),
+.project-statistics div:nth-child(5) {
     grid-column: 3 / span 1;
     justify-self: start;
+    transform: translateX(-50%);
 }
 
 .oprtunity {
@@ -131,8 +136,7 @@ h2 {
     object-fit: cover;
 }
 
-.work-type,
-.project-statistics {
+.work-type {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -156,6 +160,10 @@ h2 {
     margin-top: 10px;
 }
 
+.our-projects div {
+    margin-bottom: 50px;
+}
+
 .info {
     display: flex;
     flex-direction: row;
@@ -163,25 +171,25 @@ h2 {
     gap: 50px;
 }
 
-.info:nth-child(odd) .project-img {
+.project:nth-child(odd).info .project-img {
     order: 1;
 }
 
-.info:nth-child(even) .project-img {
+.project:nth-child(even) .info .project-img {
     order: 2;
 }
 
-.info:nth-child(odd) .project-statistics {
+.project:nth-child(odd) .info .project-statistics {
     order: 2;
 }
 
-.info:nth-child(even) .project-statistics {
+.project:nth-child(even) .info .project-statistics {
     order: 1;
 }
 
 .project-img {
     width: 700px;
-    height: 550px;
+    height: 500px;
     object-fit: cover;
 }
 
@@ -195,12 +203,12 @@ h2 {
     text-align: center;
 }
 
-.status h2{
+.status h2 {
     font-size: 20px;
     margin: 0px;
 }
 
-.status p{
+.status p {
     margin: 5px;
 }
 
@@ -343,4 +351,86 @@ h2 {
     margin-top: 15px;
     font-size: 16px;
     color: #00ffcc;
+}
+
+
+
+
+
+/* tests */
+.project.two {
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.project.two .project-statistics {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    justify-content: center;
+    align-items: end;
+    gap: 30px;
+}
+
+.project.two .project-statistics div:nth-child(4) {
+    grid-column: 1 / span 1;
+    justify-self: start;
+    transform: none;
+}
+
+.project.two .project-statistics div:nth-child(5) {
+    grid-column: 3 / span 1;
+    justify-self: start;
+    transform: none;
+}
+
+.project.two .project-statistics div * {
+    margin: 0;
+    border-radius: 25px;
+}
+
+.project.two .project-statistics div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 0px;
+}
+
+.project.two .project-statistics div a{
+    color: white;
+}
+
+.project.two .project-statistics div .timeline {
+    border: 2px solid white;
+    width: 170px;
+}
+
+.project.two .project-statistics div .durzone {
+    background-color: antiquewhite;
+    color: black;
+    padding: 10px 15px;
+}
+
+.project.two .link-btn{
+    border: 2px solid white;
+    padding: 5px 10px;
+    color: white;
+}
+
+.project.two .link-btn:hover{
+    background-color: antiquewhite;
+    color: black;
+}
+
+.project.three * {
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    font-weight: 200;
+    letter-spacing: 0.1rem;
 }

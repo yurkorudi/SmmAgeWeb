@@ -5,8 +5,9 @@ header {
     margin: 20px 15px;
     position: sticky;
     top: 0;
-    backdrop-filter: blur(6px);
-    z-index: 1;
+    /* backdrop-filter: blur(6px); */
+    z-index: 10;
+    flex: 1;
 }
 
 .navbar {
