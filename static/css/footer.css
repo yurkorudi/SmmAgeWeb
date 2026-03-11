@@ -3,11 +3,10 @@ footer {
   padding: 20px;
   text-align: center;
   color: white;
-  z-index: 2;
+  /* z-index: 2;
   margin-top: auto;
-  position: sticky;
-  bottom: 0;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px); */
+  flex: 3 ;
 }
 
 .footer-content {
