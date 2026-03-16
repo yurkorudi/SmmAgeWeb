@@ -168,53 +168,8 @@ h2 {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 50px;
-}
-
-.project:nth-child(odd).info .project-img {
-    order: 1;
-}
-
-.project:nth-child(even) .info .project-img {
-    order: 2;
-}
-
-.project:nth-child(odd) .info .project-statistics {
-    order: 2;
-}
-
-.project:nth-child(even) .info .project-statistics {
-    order: 1;
-}
-
-.project-img {
-    width: 700px;
-    height: 500px;
-    object-fit: cover;
-}
-
-.status img {
-    width: 50px;
-    height: 50px;
-}
-
-.status {
-    align-items: center;
-    text-align: center;
-}
-
-.status h2 {
-    font-size: 20px;
-    margin: 0px;
-}
-
-.status p {
-    margin: 5px;
-}
-
-.status a {
-    color: rgba(0, 89, 255, 1);
-    text-decoration: none;
 }
 
 .comment {
@@ -369,6 +324,29 @@ h2 {
     align-items: center;
 }
 
+.project.two:nth-child(odd).info .project-img {
+    order: 1;
+}
+
+.project.two:nth-child(even) .info .project-img {
+    order: 2;
+}
+
+.project.two:nth-child(odd) .info .project-statistics {
+    order: 2;
+    align-items: start;
+    padding-left: 0;
+    padding-right: 50px;
+}
+
+.project.two:nth-child(odd) .info .project-statistics .status.descript p{
+    text-align: start;
+}
+
+.project.two:nth-child(even) .info .project-statistics {
+    order: 1;
+}
+
 .project.two .project-statistics {
     display: flex;
     flex-direction: column;
@@ -376,6 +354,35 @@ h2 {
     justify-content: center;
     align-items: end;
     gap: 30px;
+    padding-left: 50px;
+    margin: 0;
+}
+
+.project.two .status {
+    align-items: center;
+    text-align: center;
+}
+
+.project.two .status h2 {
+    font-size: 20px;
+    margin: 0px;
+}
+
+.project.two .status p {
+    margin: 5px;
+}
+
+.project.two .status a {
+    color: rgba(0, 89, 255, 1);
+    text-decoration: none;
+}
+
+.project.two .project-statistics .status.descript{
+    align-items: flex-start;
+}
+
+.project.two .project-statistics .status.descript p{
+    text-align: end;
 }
 
 .project.two .project-statistics div:nth-child(4) {
@@ -433,4 +440,83 @@ h2 {
     text-decoration: none;
     font-weight: 200;
     letter-spacing: 0.1rem;
+}
+
+/* slider */
+.mySlides {
+  display: none;
+}
+
+.mySlides img {
+  height: 450px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Slideshow container */
+.project-img {
+  width: 50%;
+  height: 450px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: .4
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+
+  .prev,
+  .next {
+    font-size: 11px
+  }
+}
+
+@media (max-width: 1024px) {
+  .mySlides.fade img {
+    height: 400px;
+  }
 }
