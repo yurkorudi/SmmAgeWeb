@@ -17,22 +17,39 @@ section {
 }
 
 .hero {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   min-height: 70vh;
+  color: white;
 }
 
-.hero h1{
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.1rem;
+
+.hero h1 {
+    font-size: 32px;
+    max-width: 800px;
+    line-height: 1.4;
 }
 
-.hero a{
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.1rem;
+.hero p {
+    font-size: 18px;
+    opacity: 0.8;
+    margin: 10px 0 20px;
+}
+
+.hero a.cta {
+    border: 1px solid white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.hero a.cta:hover {
+    background: white;
+    color: black;
 }
 
 
@@ -84,7 +101,7 @@ main .section-title {
 
 .hero a {
     text-decoration: none;
-    color: rgba(0, 89, 255, 1);
+    color: rgb(252, 252, 252);
     margin: 0;
     padding: 0;
 }
