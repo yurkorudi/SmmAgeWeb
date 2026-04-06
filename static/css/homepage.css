@@ -501,7 +501,7 @@ h2 {
     margin: 0 !important;
 }
 
-.project-img div{
+.project-img div {
     margin: 0;
     height: 100%;
     width: 100%;
@@ -558,6 +558,36 @@ h2 {
     .prev,
     .next {
         font-size: 11px
+    }
+}
+
+@media (max-width: 768px) {
+    .presents {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .presents div:nth-child(4) {
+        justify-self: center;
+        transform: translateX(0%);
+    }
+
+    .presents div:nth-child(5) {
+        justify-self: center;
+        transform: translateX(0%);
+    }
+
+    .info {
+        flex-direction: column;
+    }
+
+    .project.two:nth-child(even) .info .project-img {
+        order: 1;
+    }
+
+    .project-img{
+        width: 100%;
     }
 }
 
