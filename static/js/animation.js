@@ -14,8 +14,8 @@ const particles = [];
 const mouse = { x: null, y: null };
 
 window.addEventListener("mousemove", e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
+  mouse.x = 0;
+  mouse.y = 0;
 });
 
 for (let i = 0; i < TOTAL; i++) {

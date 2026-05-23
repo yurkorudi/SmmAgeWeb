@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | SmmAge</title>
+  <link rel="stylesheet" href="/static/css/admin.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <section class="admin-card">
+      <div class="admin-top">
+        <h1>SmmAge admin</h1>
+        <a href="/">На сайт</a>
+      </div>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p class="admin-flash">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form class="admin-form" method="POST">
+        <label>
+          Логін
+          <input type="text" name="username" required>
+        </label>
+        <label>
+          Пароль
+          <input type="password" name="password" required>
+        </label>
+        <button class="admin-button wide" type="submit">Увійти</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

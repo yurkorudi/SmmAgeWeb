@@ -1,87 +1,217 @@
-
 header {
-    width: calc(100vw - 40px);
-    padding: 5px;
-    margin: 20px 15px;
-    /* position: sticky; */
-    top: 0;
-    /* backdrop-filter: blur(6px); */
-    z-index: 10;
-    flex: 1;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  padding: 8px clamp(6px, 1.4vw, 18px) 0;
+  box-sizing: border-box;
 }
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 100%;
-    color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  color: white;
 }
 
-.nav-links {
-    padding-right: 10%;
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    margin-top: -15px;
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-left: -2px;
+  transform: translateY(-5px);
+  color: white;
+  text-decoration: none;
+  line-height: 1;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.nav-links a {
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
+.logo:hover {
+  opacity: 0.82;
+  transform: translateY(-7px);
+}
+
+.logo-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
 }
 
 .smm {
-    font-weight: 900;
-    font-size: 50px;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.1rem;
-    display: inline-block;
-    margin: 0;
-    line-height: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(34px, 5vw, 50px);
+  font-weight: 900;
+  letter-spacing: 0.04rem;
+  margin: 0;
 }
 
 .age {
-    font-size: x-large;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 100;
-    letter-spacing: 0.1rem;
-    margin: 0 3px 0 0;
-    display: inline-block;
-    margin-left: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(20px, 3vw, 25px);
+  font-weight: 100;
+  letter-spacing: 0.08rem;
+  margin: 0;
 }
-
 
 .inno {
-    font-size: x-large;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 100;
-    letter-spacing: 0.5rem;
-    margin-top: -7px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(14px, 2vw, 24px);
+  font-weight: 100;
+  letter-spacing: clamp(0.18rem, 1vw, 0.5rem);
+  margin: -3px 0 0;
 }
 
+.nav-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+  min-width: 0;
+  padding-top: 15px;
+}
 
-.logo {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nav-links a,
+.footer-column a,
+.footer-bottom a {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  letter-spacing: 0.04rem;
+  text-decoration: none;
+  opacity: 0.72;
+  transition: opacity 0.22s ease, color 0.22s ease;
+}
+
+.nav-links a:hover,
+.footer-column a:hover,
+.footer-bottom a:hover {
+  opacity: 1;
+}
+
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-btn {
+  min-width: 43px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 100;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease;
+}
+
+.lang-btn.active {
+  background: white;
+  border-color: white;
+  color: black;
+}
+
+.menu-toggle {
+  display: none;
+  position: relative;
+  z-index: 40;
+  width: 42px;
+  height: 42px;
+  margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 5px auto;
+  background: white;
+}
+
+@media (max-width: 920px) {
+  .nav-panel {
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 760px) {
+  header {
+    padding: 10px 12px 0;
+  }
+
+  .navbar {
     position: relative;
-    left: 0px;
-    padding-left: 50px;
-}
+    align-items: flex-start;
+  }
 
-@media(max-width: 768px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        padding: 15px;
-        border-radius: 10px;
-    }
+  .logo {
+    margin-left: 0;
+  }
 
-    .burger {
-        display: block;
-    }
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    padding: 80px 28px;
+    border: 0;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.84);
+    backdrop-filter: blur(18px);
+  }
+
+  .nav-panel.open {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-links a {
+    font-size: 22px;
+  }
+
+  .language-switch {
+    align-self: center;
+  }
 }

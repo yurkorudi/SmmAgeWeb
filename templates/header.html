@@ -1,35 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/base.css">
-    <link rel="stylesheet" href="/static/css/header.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-</head>
-<body>
-
-
 <header>
-  <nav class="navbar">
-    <div class="logo"><p class='smm'>Smm</p><p class='age'>age</p><br class="logobr">
-    <p class='inno'>innovations</p></div>
-    <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about-us">About</a></li>
-      <li><a href="#contact-us">Contact</a></li>
-    </ul>
+  <nav class="navbar" aria-label="Main navigation">
+    <a class="logo" href="/#hero" aria-label="SmmAge innovations">
+      <span class="logo-row"><span class="smm">Smm</span><span class="age">age</span></span>
+      <span class="inno">innovations</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="nav-panel" id="nav-links">
+      <ul class="nav-links">
+        <li><a href="/#hero" data-i18n="nav.home">Головна</a></li>
+        <li><a href="/#services" data-i18n="nav.services">Послуги</a></li>
+        <li><a href="/#about-us" data-i18n="nav.about">Про нас</a></li>
+        <li><a href="/#projects" data-i18n="nav.projects">Проєкти</a></li>
+        <li><a href="/#contact-us" data-i18n="nav.contact">Контакти</a></li>
+      </ul>
+
+      <div class="language-switch" aria-label="Language switcher">
+        <button class="lang-btn active" type="button" data-lang="uk">UKR</button>
+        <button class="lang-btn" type="button" data-lang="en">ENG</button>
+      </div>
+    </div>
   </nav>
 </header>
-
-
-</body>
-</html>
-
-
-<script>
-function toggleMenu(){
-const m = document.getElementById("menu");
-m.style.display = m.style.display === "flex" ? "none" : "flex";
-}
-</script>

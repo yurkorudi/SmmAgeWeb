@@ -1,0 +1,133 @@
+body.admin-page {
+  min-height: 100vh;
+  background: #050505;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.admin-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 60px;
+}
+
+.admin-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.admin-top h1,
+.admin-card h2 {
+  margin: 0;
+  font-weight: 300;
+}
+
+.admin-top a,
+.admin-card a,
+.admin-button {
+  color: white;
+  text-decoration: none;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.admin-card {
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 13px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font: inherit;
+  color-scheme: dark;
+}
+
+.admin-form select option {
+  background: #050505;
+  color: white;
+}
+
+.admin-form textarea,
+.admin-form .wide {
+  grid-column: 1 / -1;
+}
+
+.admin-button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid white;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.admin-table {
+  width: 100%;
+  margin-top: 18px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 500;
+}
+
+.admin-error,
+.admin-flash {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+@media (max-width: 780px) {
+  .admin-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

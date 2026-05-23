@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Development | SmmAge innovations</title>
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href="/static/css/homepage.css">
+  <link rel="stylesheet" href="/static/css/service.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,400,500,700,900&display=swap" rel="stylesheet">
+</head>
+<body class="fade service-page">
+  <canvas id="c"></canvas>
+  {% include 'header.html' %}
+
+  <main>
+    <section class="service-hero reveal">
+      <h1 data-i18n="service.pages.web.title">Web Development</h1>
+      <p data-i18n="service.pages.web.text">Проєктуємо сайти, які швидко пояснюють пропозицію, виглядають охайно на різних екранах і ведуть користувача до заявки.</p>
+    </section>
+
+    <section class="service-detail section-block reveal">
+      <div>
+        <p class="eyebrow" data-i18n="service.includes">Що входить</p>
+        <h2 class="section-title" data-i18n="service.process">Працюємо короткими етапами, щоб швидко показати перший результат</h2>
+      </div>
+      <div class="service-list">
+        <div class="service-step"><span>01</span><p data-i18n="service.pages.web.item1">Структура й прототип</p></div>
+        <div class="service-step"><span>02</span><p data-i18n="service.pages.web.item2">Адаптивна HTML/CSS-верстка</p></div>
+        <div class="service-step"><span>03</span><p data-i18n="service.pages.web.item3">Форма заявки</p></div>
+        <div class="service-step"><span>04</span><p data-i18n="service.pages.web.item4">Базова підготовка до запуску</p></div>
+      </div>
+    </section>
+
+    <section class="service-examples section-block reveal">
+      <div class="section-heading">
+        <p data-i18n="service.examples.kicker">Приклади</p>
+        <h2 class="section-title" data-i18n="service.examples.title">Що можемо зробити</h2>
+      </div>
+      <div class="example-grid">
+        {% for example in examples %}
+          <article class="example-card">
+            <img src="{{ example.image_url }}" alt="">
+            <div>
+              <p>{{ example.category }}</p>
+              <h3>{{ example.title }}</h3>
+              <span>{{ example.result }}</span>
+              <p>{{ example.description }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="service-cta reveal">
+      <h2 data-i18n="service.ctaTitle">Хочете зрозуміти, що підійде саме вам?</h2>
+      <p data-i18n="service.ctaText">Опишіть задачу, а ми запропонуємо простий план старту без зайвої складності.</p>
+      <a class="cta" href="/#contact-us" data-i18n="hero.cta">Обговорити проєкт</a>
+    </section>
+  </main>
+
+  {% include 'footer.html' %}
+  <script src="/static/js/animation.js"></script>
+  <script src="/static/js/anchor.js"></script>
+  <script src="/static/js/i18n.js"></script>
+  <script src="/static/js/interactions.js"></script>
+</body>
+</html>

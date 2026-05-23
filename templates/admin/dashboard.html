@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | SmmAge</title>
+  <link rel="stylesheet" href="/static/css/admin.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page">
+  <main class="admin-shell">
+    <div class="admin-top">
+      <h1>Адмін панель</h1>
+      <a href="/admin/logout">Вийти</a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p class="admin-flash">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if db_error %}
+      <p class="admin-error">База даних поки недоступна: {{ db_error }}</p>
+    {% endif %}
+
+    <div class="admin-grid">
+      <section class="admin-card">
+        <h2>Додати приклад проєкту</h2>
+        <form class="admin-form" method="POST" action="/admin/projects/add">
+          <label>
+            Послуга
+            <select name="service_slug">
+              {% for slug in service_slugs %}
+                <option value="{{ slug }}">{{ slug }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>
+            Категорія
+            <input type="text" name="category" placeholder="Landing page">
+          </label>
+          <label class="wide">
+            Назва
+            <input type="text" name="title" required placeholder="Project name">
+          </label>
+          <label class="wide">
+            Опис
+            <textarea name="description" rows="4" required></textarea>
+          </label>
+          <label>
+            Посилання на зображення
+            <input type="url" name="image_url" placeholder="https://...">
+          </label>
+          <label>
+            Результат
+            <input type="text" name="result" placeholder="+40% reach">
+          </label>
+          <label>
+            Лінк
+            <input type="url" name="link" placeholder="https://...">
+          </label>
+          <label>
+            Показувати
+            <input type="checkbox" name="is_featured" checked>
+          </label>
+          <button class="admin-button wide" type="submit">Додати</button>
+        </form>
+      </section>
+
+      <section class="admin-card">
+        <h2>Заявки</h2>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Клієнт</th>
+              <th>Контакт</th>
+              <th>Категорія</th>
+              <th>Деталі</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in requests %}
+              <tr>
+                <td>{{ item.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                <td>{{ item.name }}<br>{{ item.business }}</td>
+                <td>{{ item.phone }}</td>
+                <td>{{ item.category }}<br>{{ item.budget }}<br>{{ item.timeline }}</td>
+                <td>{{ item.channels }}<br>{{ item.message }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="5">Заявок поки немає.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+
+      <section class="admin-card">
+        <h2>Приклади у базі</h2>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Послуга</th>
+              <th>Назва</th>
+              <th>Категорія</th>
+              <th>Показ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in examples %}
+              <tr>
+                <td>{{ item.service_slug }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ "так" if item.is_featured else "ні" }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="4">Прикладів у базі поки немає.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
