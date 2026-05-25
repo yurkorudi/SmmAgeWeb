@@ -11,12 +11,11 @@ from extentions import db
 from models import ContactRequest, ProjectExample
 
 app = Flask(__name__)
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "mysql+pymysql://superuser:yolkipalki220@146.190.65.79/data?charset=utf8mb4"
 DB_CONFIGURED = bool(DATABASE_URL)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-before-production")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-    "DATABASE_URL",
-    "mysql+pymysql://root:password@localhost/smmage_db?charset=utf8mb4",
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "mysql+pymysql://superuser:yolkipalki220@146.190.65.79/data?charset=utf8mb4"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
@@ -63,8 +62,8 @@ DEFAULT_EXAMPLES = {
             "category": "Landing page",
             "description": "Створили лендінг для клініки з блоками довіри, послугами, цінами й швидкою формою запису.",
             "image_url": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80",
-            "result": "2.1x більше заявок",
-            "link": "#",
+            "result": "найшвидший результат",
+            "link": "https://www.flowersbars.com/",
         },
         {
             "title": "Interior portfolio website",
