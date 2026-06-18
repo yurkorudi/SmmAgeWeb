@@ -1,7 +1,4 @@
 import os
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask.cli import with_appcontext
@@ -9,22 +6,25 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from extentions import db
 from models import ContactRequest, ProjectExample
+from telegram_notifier import notify_new_request
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+if load_dotenv:
+    load_dotenv()
 
 app = Flask(__name__)
-DATABASE_URL = "mysql+pymysql://superuser:yolkipalki220@146.190.65.79/data?charset=utf8mb4"
+
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 DB_CONFIGURED = bool(DATABASE_URL)
+
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-before-production")
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "mysql+pymysql://superuser:yolkipalki220@146.190.65.79/data?charset=utf8mb4"
-)
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL or "sqlite:///:memory:"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
-
-
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = "smmageofficialpage@gmail.com"
-APP_PASSWORD = "dlrz aipj hrxa tsmq"
 
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "AdMin")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "QweAsd")
@@ -33,7 +33,6 @@ SERVICE_TEMPLATES = {
     "smm": "services/smm.html",
     "web": "services/web.html",
     "content": "services/content.html",
-    "ads": "services/ads.html",
     "branding": "services/branding.html",
 }
 
@@ -62,15 +61,15 @@ DEFAULT_EXAMPLES = {
             "category": "Landing page",
             "description": "Створили лендінг для клініки з блоками довіри, послугами, цінами й швидкою формою запису.",
             "image_url": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80",
-            "result": "найшвидший результат",
-            "link": "https://www.flowersbars.com/",
+            "result": "готовий запуск за 12 днів",
+            "link": "#",
         },
         {
             "title": "Interior portfolio website",
             "category": "Portfolio",
             "description": "Зібрали сайт-портфоліо для дизайн-студії з галереєю, кейсами й контактною формою.",
             "image_url": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
-            "result": "готовий запуск за 12 днів",
+            "result": "зручна подача кейсів",
             "link": "#",
         },
     ],
@@ -86,27 +85,9 @@ DEFAULT_EXAMPLES = {
         {
             "title": "Restaurant visual menu",
             "category": "Photo / copy",
-            "description": "Оновили подачу страв у соцмережах: фото-напрям, підписи й рекламні креативи.",
+            "description": "Оновили подачу страв у соцмережах: фото-напрям, підписи й візуальні рубрики.",
             "image_url": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80",
             "result": "+31% збережень",
-            "link": "#",
-        },
-    ],
-    "ads": [
-        {
-            "title": "Online course launch",
-            "category": "Meta Ads",
-            "description": "Запустили тести аудиторій і креативів для освітнього продукту перед основним продажем.",
-            "image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-            "result": "CPA знижено на 27%",
-            "link": "#",
-        },
-        {
-            "title": "Local service lead campaign",
-            "category": "Lead generation",
-            "description": "Побудували кампанію для локального сервісу з простим офером і швидкою формою заявки.",
-            "image_url": "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=1200&q=80",
-            "result": "63 ліди за 3 тижні",
             "link": "#",
         },
     ],
@@ -183,11 +164,6 @@ def service_content():
     return render_template("services/content.html", examples=load_examples("content"))
 
 
-@app.route("/services/ads")
-def service_ads():
-    return render_template("services/ads.html", examples=load_examples("ads"))
-
-
 @app.route("/services/branding")
 def service_branding():
     return render_template("services/branding.html", examples=load_examples("branding"))
@@ -212,14 +188,14 @@ def contacts():
 
 @app.route("/send-request", methods=["POST"])
 def send_request():
-    name = request.form.get("name", "—")
-    phone = request.form.get("phone", "—")
-    business = request.form.get("business", "—")
-    category = request.form.get("category", "")
-    budget = request.form.get("budget", "")
-    timeline = request.form.get("timeline", "")
+    name = request.form.get("name", "—").strip() or "—"
+    phone = request.form.get("phone", "—").strip() or "—"
+    business = request.form.get("business", "—").strip() or "—"
+    category = request.form.get("category", "").strip()
+    budget = request.form.get("budget", "").strip()
+    timeline = request.form.get("timeline", "").strip()
     channels = ", ".join(request.form.getlist("channels"))
-    message = request.form.get("message", "—")
+    message = request.form.get("message", "—").strip() or "—"
 
     contact_request = ContactRequest(
         name=name,
@@ -240,43 +216,19 @@ def send_request():
             db.session.rollback()
             print("Contact request DB error:", exc)
 
-    text = f"""Нова заявка з сайту
+    notify_new_request(
+        {
+            "name": name,
+            "phone": phone,
+            "business": business,
+            "category": category,
+            "budget": budget,
+            "timeline": timeline,
+            "message": message,
+        }
+    )
 
-Ім'я:      {name}
-Телефон:   {phone}
-Бізнес:    {business}
-Категорія: {category or "—"}
-Бюджет:    {budget or "—"}
-Старт:     {timeline or "—"}
-Канали:    {channels or "—"}
-
-Повідомлення:
-{message}
-"""
-
-    msg = MIMEMultipart()
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = SENDER_EMAIL
-    msg["Subject"] = "Нова заявка з сайту"
-    msg.attach(MIMEText(text, "plain", "utf-8"))
-
-    try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=30) as server:
-            server.starttls()
-            server.login(SENDER_EMAIL, APP_PASSWORD)
-            server.send_message(msg)
-
-        print("Лист успішно відправлено!")
-        return redirect(url_for("home", _anchor="contact-us"))
-
-    except Exception as e:
-        print("Помилка при відправці пошти:", str(e))
-        return f"""
-        <h2>Щось пішло не так</h2>
-        <p>Не вдалося надіслати заявку. Спробуйте пізніше або напишіть нам напряму.</p>
-        <p style="color: #e74c3c; font-family: monospace;">Помилка: {str(e)}</p>
-        <a href="/">На головну</a>
-        """, 500
+    return redirect(url_for("home", _anchor="contact-us"))
 
 
 @app.route("/admin/login", methods=["GET", "POST"])
@@ -313,7 +265,7 @@ def admin_dashboard():
             db.session.rollback()
             db_error = str(exc)
     else:
-        db_error = "DATABASE_URL не налаштовано. Вкажіть MySQL URI, щоб адмінка зберігала заявки та приклади."
+        db_error = "DATABASE_URL не налаштовано. Вкажіть URI в .env, щоб адмінка зберігала заявки та приклади."
 
     return render_template(
         "admin/dashboard.html",

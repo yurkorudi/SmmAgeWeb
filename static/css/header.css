@@ -23,7 +23,7 @@ header {
   flex-direction: column;
   flex-shrink: 0;
   margin-left: -2px;
-  transform: translateY(-5px);
+  transform: translateY(4px);
   color: white;
   text-decoration: none;
   line-height: 1;
@@ -32,7 +32,7 @@ header {
 
 .logo:hover {
   opacity: 0.82;
-  transform: translateY(-7px);
+  transform: translateY(2px);
 }
 
 .logo-row {

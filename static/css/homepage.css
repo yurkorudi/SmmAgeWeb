@@ -77,8 +77,7 @@ section {
 .cta,
 .submit-btn,
 .project-actions a,
-.link-btn,
-.propose_text a {
+.service-card__content a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,8 +97,7 @@ section {
 
 .cta:hover,
 .submit-btn:hover,
-.link-btn:hover,
-.propose_text a:hover {
+.service-card__content a:hover {
   background: white;
   color: black;
 }
@@ -127,14 +125,14 @@ section {
   display: none;
 }
 
-.presents {
+.service-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
+  justify-content: center;
 }
 
-.oprtunity {
-  grid-column: span 2;
+.service-card {
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -146,22 +144,14 @@ section {
   box-sizing: border-box;
 }
 
-.oprtunity:nth-child(4) {
-  grid-column: 2 / span 2;
-}
-
-.oprtunity:nth-child(5) {
-  grid-column: 4 / span 2;
-}
-
-.oprtunity img {
+.service-card img {
   width: 54px;
   height: 54px;
   flex: 0 0 auto;
   object-fit: contain;
 }
 
-.propose_text {
+.service-card__content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -176,8 +166,8 @@ h4 {
   margin: 0;
 }
 
-.propose_text h3,
-.type h3,
+.service-card__content h3,
+.format-card h3,
 .project-statistics h3,
 .comments h3 {
   font-family: 'Montserrat', sans-serif;
@@ -186,8 +176,8 @@ h4 {
   line-height: 1.35;
 }
 
-.propose_text p,
-.type p,
+.service-card__content p,
+.format-card p,
 .project-statistics p,
 .comment p,
 .about-copy p {
@@ -198,7 +188,7 @@ h4 {
   line-height: 1.65;
 }
 
-.propose_text a {
+.service-card__content a {
   min-height: 36px;
   padding: 0 14px;
   border-color: rgba(255, 255, 255, 0.22);
@@ -254,13 +244,16 @@ h4 {
   line-height: 1.5;
 }
 
-.work-type {
+.format-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.type {
+.format-card {
   min-width: 0;
   padding: 14px 14px 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -269,7 +262,7 @@ h4 {
   box-sizing: border-box;
 }
 
-.type img {
+.format-card img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -277,11 +270,11 @@ h4 {
   border-radius: 6px;
 }
 
-.type h3 {
+.format-card h3 {
   margin-top: 16px;
 }
 
-.type p {
+.format-card p {
   margin-top: 10px;
 }
 
@@ -454,7 +447,7 @@ h4 {
   gap: 12px;
 }
 
-.project-actions a:not(.link-btn) {
+.project-actions a {
   border-color: rgba(255, 255, 255, 0.22);
   color: rgba(255, 255, 255, 0.84);
 }
@@ -562,45 +555,6 @@ h4 {
   font-size: 15px;
 }
 
-.checkbox-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-  text-align: left;
-}
-
-.checkbox-row legend {
-  padding: 0 8px;
-  color: rgba(255, 255, 255, 0.66);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-}
-
-.checkbox-row label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 38px;
-  padding: 0 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.82);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
-}
-
-.checkbox-row label.is-hidden {
-  display: none;
-}
-
-.checkbox-row input {
-  accent-color: white;
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -628,15 +582,9 @@ h4 {
 }
 
 @media (max-width: 1080px) {
-  .presents,
-  .work-type {
+  .service-grid,
+  .format-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .oprtunity,
-  .oprtunity:nth-child(4),
-  .oprtunity:nth-child(5) {
-    grid-column: auto;
   }
 
   .projects-layout {
@@ -689,8 +637,8 @@ h4 {
     margin-bottom: 86px;
   }
 
-  .presents,
-  .work-type {
+  .service-grid,
+  .format-grid {
     grid-template-columns: 1fr;
   }
 
@@ -702,7 +650,7 @@ h4 {
     display: none;
   }
 
-  .oprtunity {
+  .service-card {
     min-height: auto;
     padding: 18px;
   }

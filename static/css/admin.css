@@ -39,6 +39,8 @@ body.admin-page {
 }
 
 .admin-card {
+  min-width: 0;
+  overflow: hidden;
   padding: 22px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
@@ -63,6 +65,7 @@ body.admin-page {
 .admin-form input,
 .admin-form select,
 .admin-form textarea {
+  min-width: 0;
   width: 100%;
   padding: 13px 12px;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -83,6 +86,17 @@ body.admin-page {
   grid-column: 1 / -1;
 }
 
+.checkbox-field {
+  align-items: flex-start;
+}
+
+.checkbox-field input {
+  width: auto;
+  min-width: 18px;
+  height: 18px;
+  accent-color: white;
+}
+
 .admin-button {
   min-height: 44px;
   padding: 0 18px;
@@ -93,11 +107,17 @@ body.admin-page {
   font: inherit;
 }
 
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .admin-table {
   width: 100%;
   margin-top: 18px;
   border-collapse: collapse;
   font-size: 13px;
+  table-layout: fixed;
 }
 
 .admin-table th,
@@ -106,6 +126,8 @@ body.admin-page {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-align: left;
   vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .admin-table th {
@@ -127,7 +149,6 @@ body.admin-page {
   }
 
   .admin-table {
-    display: block;
-    overflow-x: auto;
+    min-width: 720px;
   }
 }

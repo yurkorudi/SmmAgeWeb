@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | SmmAge</title>
+  <title>Адмін панель | SmmAge</title>
   <link rel="stylesheet" href="/static/css/admin.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
 </head>
@@ -29,6 +29,7 @@
     <div class="admin-grid">
       <section class="admin-card">
         <h2>Додати приклад проєкту</h2>
+
         <form class="admin-form" method="POST" action="/admin/projects/add">
           <label>
             Послуга
@@ -38,90 +39,108 @@
               {% endfor %}
             </select>
           </label>
+
           <label>
             Категорія
             <input type="text" name="category" placeholder="Landing page">
           </label>
+
           <label class="wide">
             Назва
             <input type="text" name="title" required placeholder="Project name">
           </label>
+
           <label class="wide">
             Опис
             <textarea name="description" rows="4" required></textarea>
           </label>
+
           <label>
             Посилання на зображення
             <input type="url" name="image_url" placeholder="https://...">
           </label>
+
           <label>
             Результат
             <input type="text" name="result" placeholder="+40% reach">
           </label>
+
           <label>
             Лінк
             <input type="url" name="link" placeholder="https://...">
           </label>
-          <label>
-            Показувати
+
+          <label class="checkbox-field">
+            <span>Показувати</span>
             <input type="checkbox" name="is_featured" checked>
           </label>
+
           <button class="admin-button wide" type="submit">Додати</button>
         </form>
       </section>
 
       <section class="admin-card">
         <h2>Заявки</h2>
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Дата</th>
-              <th>Клієнт</th>
-              <th>Контакт</th>
-              <th>Категорія</th>
-              <th>Деталі</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in requests %}
+
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
               <tr>
-                <td>{{ item.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
-                <td>{{ item.name }}<br>{{ item.business }}</td>
-                <td>{{ item.phone }}</td>
-                <td>{{ item.category }}<br>{{ item.budget }}<br>{{ item.timeline }}</td>
-                <td>{{ item.channels }}<br>{{ item.message }}</td>
+                <th>Дата</th>
+                <th>Клієнт</th>
+                <th>Контакт</th>
+                <th>Категорія</th>
+                <th>Деталі</th>
               </tr>
-            {% else %}
-              <tr><td colspan="5">Заявок поки немає.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {% for item in requests %}
+                <tr>
+                  <td>{{ item.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                  <td>{{ item.name }}<br>{{ item.business }}</td>
+                  <td>{{ item.phone }}</td>
+                  <td>{{ item.category }}<br>{{ item.budget }}<br>{{ item.timeline }}</td>
+                  <td>{{ item.message }}</td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td colspan="5">Заявок поки немає.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="admin-card">
         <h2>Приклади у базі</h2>
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>Послуга</th>
-              <th>Назва</th>
-              <th>Категорія</th>
-              <th>Показ</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in examples %}
+
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
               <tr>
-                <td>{{ item.service_slug }}</td>
-                <td>{{ item.title }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ "так" if item.is_featured else "ні" }}</td>
+                <th>Послуга</th>
+                <th>Назва</th>
+                <th>Категорія</th>
+                <th>Показ</th>
               </tr>
-            {% else %}
-              <tr><td colspan="4">Прикладів у базі поки немає.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {% for item in examples %}
+                <tr>
+                  <td>{{ item.service_slug }}</td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.category }}</td>
+                  <td>{{ "так" if item.is_featured else "ні" }}</td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td colspan="4">Прикладів у базі поки немає.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   </main>
