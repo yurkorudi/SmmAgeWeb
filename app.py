@@ -3,7 +3,7 @@ import os
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask.cli import with_appcontext
 from sqlalchemy.exc import SQLAlchemyError
-
+from datetime import datetime, timezone
 from extentions import db
 from models import ContactRequest, ProjectExample, MainProjectExample
 from telegram_notifier import notify_new_request
@@ -341,7 +341,7 @@ def admin_add_main_project():
         file = request.files['image']
         if file and file.filename and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            unique_filename = f"{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{filename}"
+            unique_filename = f"{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{filename}"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
             image_path = f"uploads/projects/{unique_filename}"
 
@@ -399,7 +399,7 @@ def admin_edit_main_project(project_id):
                         os.remove(old_path)
                 
                 filename = secure_filename(file.filename)
-                unique_filename = f"{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{filename}"
+                unique_filename = f"{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}_{filename}"
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
                 project.image = f"uploads/projects/{unique_filename}"
 

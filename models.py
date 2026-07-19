@@ -1,5 +1,5 @@
-from datetime import datetime
 
+from datetime import datetime, timezone
 from extentions import db
 
 
@@ -42,5 +42,5 @@ class MainProjectExample(db.Model):
     image = db.Column(db.String(300))
     
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
