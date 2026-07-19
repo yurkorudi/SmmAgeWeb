@@ -20,7 +20,7 @@ if load_dotenv:
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = 'static/uploads/projects'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 DB_CONFIGURED = bool(DATABASE_URL)
