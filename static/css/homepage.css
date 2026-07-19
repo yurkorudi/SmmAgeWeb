@@ -102,6 +102,12 @@ section {
   color: black;
 }
 
+.project-actions a:hover {
+  background: white;
+  color: black;
+  border-color: white;
+}
+
 .section-block {
   max-width: 1240px;
   margin: 0 auto 118px;
@@ -349,9 +355,35 @@ h4 {
 .project-img {
   position: relative;
   min-height: 360px;
+  max-height: 400px;
   overflow: hidden;
   border-radius: 8px;
 }
+
+/* ===== НОВІ СТИЛІ ДЛЯ ЗОБРАЖЕНЬ ПРОЄКТІВ ===== */
+
+/* Обмеження розміру зображення в картці проєкту */
+.project-card .project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Ефект при наведенні */
+.project-card .project-img:hover img {
+  transform: scale(1.03);
+}
+
+/* Для статичних зображень (не слайдер) */
+.project-card .project-img img:only-child {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== КІНЕЦЬ НОВИХ СТИЛІВ ===== */
 
 .project-img div,
 .mySlides {
@@ -616,7 +648,8 @@ h4 {
   }
 
   .project-img {
-    min-height: 300px;
+    min-height: 250px;
+    max-height: 300px;
   }
 
   .form-row {
@@ -660,7 +693,8 @@ h4 {
   }
 
   .project-img {
-    min-height: 240px;
+    min-height: 200px;
+    max-height: 250px;
   }
 
   .project-meta {
