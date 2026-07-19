@@ -27,57 +27,57 @@
     {% endif %}
 
     <div class="admin-grid">
+
+
       <section class="admin-card">
-        <h2>Додати приклад проєкту</h2>
+        <h2>Додати проєкт на головну</h2>
 
-        <form class="admin-form" method="POST" action="/admin/projects/add">
-          <label>
-            Послуга
-            <select name="service_slug">
-              {% for slug in service_slugs %}
-                <option value="{{ slug }}">{{ slug }}</option>
-              {% endfor %}
-            </select>
+        <form class="admin-form" method="POST" action="/admin/main-project/add" enctype="multipart/form-data">
+          <label class="wide">
+            Назва проєкту <small>(обов'язково)</small>
+            <input type="text" name="title" required placeholder="Сайт для простору відпочинку">
           </label>
 
           <label>
-            Категорія
-            <input type="text" name="category" placeholder="Landing page">
+            Тип проєкту <small>(обов'язково)</small>
+            <input type="text" name="project_type" required placeholder="Website / Booking">
           </label>
 
           <label class="wide">
-            Назва
-            <input type="text" name="title" required placeholder="Project name">
-          </label>
-
-          <label class="wide">
-            Опис
+            Опис проєкту <small>(обов'язково)</small>
             <textarea name="description" rows="4" required></textarea>
           </label>
 
           <label>
-            Посилання на зображення
-            <input type="url" name="image_url" placeholder="https://...">
+            Термін виконання <small>(обов'язково)</small>
+            <input type="text" name="duration" required placeholder="3 місяці">
           </label>
 
           <label>
-            Результат
-            <input type="text" name="result" placeholder="+40% reach">
+            Бюджет <small>(обов'язково)</small>
+            <input type="text" name="budget" required placeholder="від $200">
           </label>
 
           <label>
-            Лінк
+            Лінка
             <input type="url" name="link" placeholder="https://...">
           </label>
 
-          <label class="checkbox-field">
-            <span>Показувати</span>
-            <input type="checkbox" name="is_featured" checked>
+          <label>
+            Зображення проєкту
+            <input type="file" name="image" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp">
+            <small>Підтримуються формати: PNG, JPG, GIF, WebP (макс. 16 МБ)</small>
           </label>
 
-          <button class="admin-button wide" type="submit">Додати</button>
+          <label class="checkbox-field">
+            <span>Показувати на сайті</span>
+            <input type="checkbox" name="is_active" checked>
+          </label>
+
+          <button class="admin-button wide" type="submit">Додати на головну</button>
         </form>
       </section>
+
 
       <section class="admin-card">
         <h2>Заявки</h2>
@@ -112,9 +112,9 @@
         </div>
       </section>
 
-      <section class="admin-card">
-        <h2>Приклади у базі</h2>
 
+      <section class="admin-card">
+        <h2>Приклади у базі (для сторінок послуг)</h2>
         <div class="table-scroll">
           <table class="admin-table">
             <thead>
@@ -142,6 +142,57 @@
           </table>
         </div>
       </section>
+
+
+      <section class="admin-card">
+        <h2>Проєкти на головній</h2>
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Назва</th>
+                <th>Тип</th>
+                <th>Бюджет</th>
+                <th>Термін</th>
+                <th>Зображення</th>
+                <th>Активний</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in main_projects %}
+                <tr>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.project_type }}</td>
+                  <td>{{ item.budget }}</td>
+                  <td>{{ item.duration }}</td>
+                  <td>
+                    {% if item.image %}
+                      <img src="/static/{{ item.image }}" alt="{{ item.title }}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">
+                    {% else %}
+                      <span style="color: #999;">—</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ "так" if item.is_active else "ні" }}</td>
+                  <td>
+
+                    <a href="/admin/main-project/edit/{{ item.id }}">Ред.</a>
+
+                    <form method="POST" action="/admin/main-project/delete/{{ item.id }}" style="display:inline;" onsubmit="return confirm('Ви впевнені, що хочете видалити проєкт «{{ item.title }}»?');">
+                      <button type="submit" class="link-button">Видалити</button>
+                    </form>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td colspan="7">Проєктів для головної поки немає.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
     </div>
   </main>
 </body>

@@ -138,51 +138,38 @@
         </aside>
 
         <div class="project-list">
-          <article class="project-card">
-            <div class="project-img slider">
-              <div class="mySlides fade active"><img src="https://cdn.prod.website-files.com/687799f632f5c86b7c331314/6977832cab006167b1b18573_7-p-1600.jpg" alt=""></div>
-              <div class="mySlides fade"><img src="https://cdn.prod.website-files.com/687799f632f5c86b7c331314/69837f2690617e0562ee096b_%D0%92%D0%B8%D0%B4%20%D0%B7%20%D1%82%D0%B5%D1%80%D0%B0%D1%81%D0%B8%20%D0%B7%D0%B8%D0%BC%D0%B0-p-1600.jpg" alt=""></div>
-              <div class="mySlides fade"><img src="https://cdn.prod.website-files.com/687799f632f5c86b7c331314/6977832c519eda7a55fb7996_2-p-1600.jpg" alt=""></div>
-              <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
-              <button class="next" type="button" aria-label="Next slide">&#10095;</button>
-            </div>
+          {% if main_projects %}
+            {% for project in main_projects %}
+            <article class="project-card">
+              {% if project.image %}
+              <div class="project-img">
+                <img src="/static/{{ project.image }}" alt="{{ project.title }}">
+              </div>
+              {% endif %}
 
-            <div class="project-statistics">
-              <p class="project-label" data-i18n="project.one.label">Website / Booking</p>
-              <h3 data-i18n="project.one.title">Сайт для простору відпочинку</h3>
-              <p data-i18n="project.one.text">Атмосферна сторінка з акцентом на візуал, переваги локації та швидкий шлях до бронювання.</p>
-              <div class="project-meta">
-                <div><span data-i18n="project.duration.label">Термін</span><strong data-i18n="project.one.duration">3 місяці</strong></div>
-                <div><span data-i18n="project.price.label">Від</span><strong data-i18n="project.one.price">$200</strong></div>
+              <div class="project-statistics">
+                <p class="project-label">{{ project.project_type }}</p>
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                
+                <div class="project-meta">
+                  <div><span data-i18n="project.duration.label">Термін</span><strong>{{ project.duration }}</strong></div>
+                  <div><span data-i18n="project.price.label">Від</span><strong>{{ project.budget }}</strong></div>
+                </div>
+                
+                <div class="project-actions">
+                  {% if project.link %}
+                    <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer" data-i18n="project.order">Замовити схожий</a>
+                  {% else %}
+                    <a href="#contact-us" data-i18n="project.order">Замовити схожий</a>
+                  {% endif %}
+                </div>
               </div>
-              <div class="project-actions">
-                <a href="#contact-us" data-i18n="project.order">Замовити схожий</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reverse">
-            <div class="project-img slider">
-              <div class="mySlides fade active"><img src="https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1200&q=80" alt=""></div>
-              <div class="mySlides fade"><img src="https://images.unsplash.com/photo-1611926653458-09294b3142bf?auto=format&fit=crop&w=1200&q=80" alt=""></div>
-              <div class="mySlides fade"><img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80" alt=""></div>
-              <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
-              <button class="next" type="button" aria-label="Next slide">&#10095;</button>
-            </div>
-
-            <div class="project-statistics">
-              <p class="project-label" data-i18n="project.two.label">SMM / Content</p>
-              <h3 data-i18n="project.two.title">Контент-система для локального бренду</h3>
-              <p data-i18n="project.two.text">Оновили подачу сторінки, зібрали рубрики й підготували креативні матеріали для регулярних публікацій.</p>
-              <div class="project-meta">
-                <div><span data-i18n="project.duration.label">Термін</span><strong data-i18n="project.two.duration">1 місяць</strong></div>
-                <div><span data-i18n="project.price.label">Від</span><strong data-i18n="project.two.price">$120</strong></div>
-              </div>
-              <div class="project-actions">
-                <a href="#contact-us" data-i18n="project.order">Замовити схожий</a>
-              </div>
-            </div>
-          </article>
+            </article>
+            {% endfor %}
+          {% else %}
+            <p style="text-align: center; color: #888; padding: 20px;">Тут скоро з'являться наші найкращі кейси.</p>
+          {% endif %}
         </div>
       </div>
     </section>
@@ -257,22 +244,5 @@
   <script src="/static/js/anchor.js"></script>
   <script src="/static/js/i18n.js"></script>
   <script src="/static/js/interactions.js"></script>
-  <script>
-    document.querySelectorAll('.slider').forEach(slider => {
-      const slides = slider.querySelectorAll('.mySlides');
-      let index = 0;
-
-      const showSlide = (n) => {
-        slides.forEach(s => s.style.display = 'none');
-        index = (n + slides.length) % slides.length;
-        slides[index].style.display = 'block';
-      };
-
-      slider.querySelector('.prev').addEventListener('click', () => showSlide(index - 1));
-      slider.querySelector('.next').addEventListener('click', () => showSlide(index + 1));
-
-      showSlide(index);
-    });
-  </script>
 </body>
 </html>

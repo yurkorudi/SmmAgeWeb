@@ -27,3 +27,20 @@ class ProjectExample(db.Model):
     link = db.Column(db.String(500))
     is_featured = db.Column(db.Boolean, default=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+class MainProjectExample(db.Model):
+    __tablename__ = 'main_projects_example'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(180), nullable=False)
+    project_type = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    duration = db.Column(db.String(80), nullable=False)
+    budget = db.Column(db.String(80), nullable=False)
+    link = db.Column(db.String(500))
+    image = db.Column(db.String(300))
+    
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    is_active = db.Column(db.Boolean, default=True, nullable=False)

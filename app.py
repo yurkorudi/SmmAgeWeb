@@ -5,8 +5,10 @@ from flask.cli import with_appcontext
 from sqlalchemy.exc import SQLAlchemyError
 
 from extentions import db
-from models import ContactRequest, ProjectExample
+from models import ContactRequest, ProjectExample, MainProjectExample
 from telegram_notifier import notify_new_request
+import os
+from werkzeug.utils import secure_filename
 
 try:
     from dotenv import load_dotenv
@@ -18,6 +20,8 @@ if load_dotenv:
 
 app = Flask(__name__)
 
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 DB_CONFIGURED = bool(DATABASE_URL)
 
@@ -25,6 +29,13 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "change-me-before-production"
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL or "sqlite:///:memory:"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "AdMin")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "QweAsd")
@@ -146,7 +157,13 @@ def load_examples(service_slug):
 
 @app.route("/")
 def home():
-    return render_template("Homepage.html")
+    main_projects = []
+    try: 
+        main_projects = MainProjectExample.query.filter_by(is_active=True).order_by(MainProjectExample.created_at.desc()).all()
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        print("Main projects DB error:", exc)
+    return render_template("Homepage.html", main_projects=main_projects)
 
 
 @app.route("/services/smm")
@@ -256,11 +273,13 @@ def admin_dashboard():
 
     requests = []
     examples = []
+    main_projects = []
     db_error = None
     if DB_CONFIGURED:
         try:
             requests = ContactRequest.query.order_by(ContactRequest.created_at.desc()).all()
             examples = ProjectExample.query.order_by(ProjectExample.created_at.desc()).all()
+            main_projects = MainProjectExample.query.order_by(MainProjectExample.created_at.desc()).all()
         except SQLAlchemyError as exc:
             db.session.rollback()
             db_error = str(exc)
@@ -272,6 +291,7 @@ def admin_dashboard():
         requests=requests,
         examples=examples,
         db_error=db_error,
+        main_projects=main_projects,
         service_slugs=SERVICE_TEMPLATES.keys(),
     )
 
@@ -304,6 +324,142 @@ def admin_add_project():
         flash(f"Не вдалося додати приклад: {exc}")
 
     return redirect(url_for("admin_dashboard"))
+
+
+
+@app.route("/admin/main-project/add", methods=["POST"])
+def admin_add_main_project():
+    if not is_admin_logged_in():
+        return redirect(url_for("admin_login"))
+    if not DB_CONFIGURED:
+        flash("DATABASE_URL не налаштовано.")
+        return redirect(url_for("admin_dashboard"))
+
+
+    image_path = None
+    if 'image' in request.files:
+        file = request.files['image']
+        if file and file.filename and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            unique_filename = f"{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{filename}"
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
+            image_path = f"uploads/projects/{unique_filename}"
+
+    new_project = MainProjectExample(
+        title=request.form.get("title", ""),
+        project_type=request.form.get("project_type", ""),
+        description=request.form.get("description", ""),
+        duration=request.form.get("duration", ""),
+        budget=request.form.get("budget", ""),
+        link=request.form.get("link", ""),
+        image=image_path,
+        is_active=request.form.get("is_active") == "on"
+    )
+
+    try:
+        db.session.add(new_project)
+        db.session.commit()
+        flash("Головний проєкт успішно додано!")
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        flash(f"Помилка: {exc}")
+
+    return redirect(url_for("admin_dashboard"))
+
+@app.route("/admin/main-project/delete/<int:project_id>", methods=["POST"])
+def admin_delete_main_project(project_id):
+    if not is_admin_logged_in():
+        return redirect(url_for("admin_login"))
+    if not DB_CONFIGURED:
+        flash("DATABASE_URL не налаштовано.")
+        return redirect(url_for("admin_dashboard"))
+
+    project = MainProjectExample.query.get_or_404(project_id)
+    try:
+        db.session.delete(project)
+        db.session.commit()
+        flash("Проєкт видалено.")
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        flash(f"Помилка при видаленні: {exc}")
+
+    return redirect(url_for("admin_dashboard"))
+
+
+
+# app.py
+
+@app.route("/admin/main-project/edit/<int:project_id>", methods=["GET", "POST"])
+def admin_edit_main_project(project_id):
+    if not is_admin_logged_in():
+        return redirect(url_for("admin_login"))
+    
+    project = MainProjectExample.query.get_or_404(project_id)
+
+    if request.method == "POST":
+        project.title = request.form.get("title", "")
+        project.project_type = request.form.get("project_type", "")
+        project.description = request.form.get("description", "")
+        project.duration = request.form.get("duration", "")
+        project.budget = request.form.get("budget", "")
+        project.link = request.form.get("link", "")
+        project.is_active = request.form.get("is_active") == "on"
+
+
+        if 'image' in request.files:
+            file = request.files['image']
+            if file and file.filename and allowed_file(file.filename):
+
+                if project.image:
+                    old_path = os.path.join('static', project.image)
+                    if os.path.exists(old_path):
+                        os.remove(old_path)
+                
+                filename = secure_filename(file.filename)
+                unique_filename = f"{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}_{filename}"
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
+                project.image = f"uploads/projects/{unique_filename}"
+
+        try:
+            db.session.commit()
+            flash("Проєкт оновлено!")
+            return redirect(url_for("admin_dashboard"))
+        except SQLAlchemyError as exc:
+            db.session.rollback()
+            flash(f"Помилка: {exc}")
+
+    return render_template("admin/edit_main_project.html", project=project)
+
+
+
+
+
+@app.route("/admin/main-project/delete/<int:project_id>", methods=["POST"])
+def admin_delete_main_project(project_id):
+    if not is_admin_logged_in():
+        return redirect(url_for("admin_login"))
+    
+    project = MainProjectExample.query.get_or_404(project_id)
+    
+
+    if project.image:
+        file_path = os.path.join('static', project.image)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+    
+    try:
+        db.session.delete(project)
+        db.session.commit()
+        flash("Проєкт видалено.")
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        flash(f"Помилка: {exc}")
+
+    return redirect(url_for("admin_dashboard"))
+
+
+
+
 
 
 @app.cli.command("init-db")

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагувати проєкт | SmmAge Admin</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page">
+    <main class="admin-shell">
+        <div class="admin-top">
+            <h1>Редагування: {{ project.title }}</h1>
+            <a href="/admin">Назад до адмінки</a>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p class="admin-flash">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <section class="admin-card">
+            <form class="admin-form" method="POST" enctype="multipart/form-data">
+                <label class="wide">
+                    Назва проєкту <small>(обов'язково)</small>
+                    <input type="text" name="title" required value="{{ project.title }}">
+                </label>
+
+                <label>
+                    Тип проєкту <small>(обов'язково)</small>
+                    <input type="text" name="project_type" required value="{{ project.project_type }}">
+                </label>
+
+                <label class="wide">
+                    Опис <small>(обов'язково)</small>
+                    <textarea name="description" rows="4" required>{{ project.description }}</textarea>
+                </label>
+
+                <label>
+                    Термін виконання <small>(обов'язково)</small>
+                    <input type="text" name="duration" required value="{{ project.duration }}">
+                </label>
+
+                <label>
+                    Бюджет <small>(обов'язково)</small>
+                    <input type="text" name="budget" required value="{{ project.budget }}">
+                </label>
+
+                <label>
+                    Лінка
+                    <input type="url" name="link" value="{{ project.link or '' }}">
+                </label>
+
+                <label>
+                    Зображення проєкту
+                    {% if project.image %}
+                        <div style="margin-bottom: 10px;">
+                            <p style="margin: 0 0 5px 0; font-size: 14px; color: #666;">Поточне зображення:</p>
+                            <img src="/static/{{ project.image }}" alt="{{ project.title }}" style="max-width: 300px; max-height: 200px; border-radius: 8px; display: block;">
+                        </div>
+                    {% endif %}
+                    <input type="file" name="image" accept="image/png, image/jpeg, image/jpg, image/gif, image/webp">
+                    <small>Залиште порожнім, щоб не змінювати зображення. Підтримуються формати: PNG, JPG, GIF, WebP (макс. 16 МБ)</small>
+                </label>
+
+                <label class="checkbox-field">
+                    <span>Активний (показувати на сайті)</span>
+                    <input type="checkbox" name="is_active" {% if project.is_active %}checked{% endif %}>
+                </label>
+
+                <button class="admin-button wide" type="submit">Зберегти зміни</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
