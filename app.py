@@ -366,24 +366,7 @@ def admin_add_main_project():
 
     return redirect(url_for("admin_dashboard"))
 
-@app.route("/admin/main-project/delete/<int:project_id>", methods=["POST"])
-def admin_delete_main_project(project_id):
-    if not is_admin_logged_in():
-        return redirect(url_for("admin_login"))
-    if not DB_CONFIGURED:
-        flash("DATABASE_URL не налаштовано.")
-        return redirect(url_for("admin_dashboard"))
 
-    project = MainProjectExample.query.get_or_404(project_id)
-    try:
-        db.session.delete(project)
-        db.session.commit()
-        flash("Проєкт видалено.")
-    except SQLAlchemyError as exc:
-        db.session.rollback()
-        flash(f"Помилка при видаленні: {exc}")
-
-    return redirect(url_for("admin_dashboard"))
 
 
 
