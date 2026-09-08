@@ -4,7 +4,7 @@
     {% if category == 'website' and project.link %}
       <div class="phone-mockup">
         <div class="phone-mockup__speaker" aria-hidden="true"></div>
-        <iframe src="{{ project.link }}" title="Попередній перегляд сайту: {{ project.title }}" loading="lazy" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="{{ project.link }}" title="Статичний попередній перегляд сайту: {{ project.title }}" loading="lazy" scrolling="no" tabindex="-1" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     {% elif category == 'social_media' %}
       <div class="instagram-preview">
