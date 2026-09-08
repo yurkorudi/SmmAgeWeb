@@ -1,4 +1,5 @@
 import os
+from urllib.parse import urlparse
 
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask.cli import with_appcontext
@@ -35,6 +36,29 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+PORTFOLIO_CATEGORIES = ("website", "social_media", "content")
+
+
+def safe_external_url(value):
+    """Accept only absolute HTTP(S) links for public embeds and links."""
+    value = (value or "").strip()
+    parsed = urlparse(value)
+    return value if parsed.scheme in {"http", "https"} and parsed.netloc else ""
+
+
+def project_category(project):
+    if project.portfolio_category in PORTFOLIO_CATEGORIES:
+        return project.portfolio_category
+    # Existing records used a free-text type; keep them visible and classify
+    # obvious values until an administrator chooses a category.
+    value = (project.project_type or "").lower()
+    if any(word in value for word in ("site", "web", "landing", "сайт")):
+        return "website"
+    if any(word in value for word in ("smm", "social", "instagram", "соц")):
+        return "social_media"
+    return "content"
 
 
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "AdMin")
@@ -157,13 +181,26 @@ def load_examples(service_slug):
 
 @app.route("/")
 def home():
-    main_projects = []
+    featured_project = None
     try: 
-        main_projects = MainProjectExample.query.filter_by(is_active=True).order_by(MainProjectExample.created_at.desc()).all()
+        featured_project = MainProjectExample.query.filter_by(is_active=True, is_featured=True).order_by(MainProjectExample.created_at.desc()).first()
+        if featured_project is None:
+            featured_project = MainProjectExample.query.filter_by(is_active=True).order_by(MainProjectExample.created_at.desc()).first()
     except SQLAlchemyError as exc:
         db.session.rollback()
         print("Main projects DB error:", exc)
-    return render_template("Homepage.html", main_projects=main_projects)
+    return render_template("Homepage.html", featured_project=featured_project, project_category=project_category)
+
+
+@app.route("/projects")
+def projects():
+    main_projects = []
+    try:
+        main_projects = MainProjectExample.query.filter_by(is_active=True).order_by(MainProjectExample.is_featured.desc(), MainProjectExample.created_at.desc()).all()
+    except SQLAlchemyError as exc:
+        db.session.rollback()
+        print("Main projects DB error:", exc)
+    return render_template("projects.html", main_projects=main_projects, project_category=project_category)
 
 
 @app.route("/services/smm")
@@ -205,14 +242,17 @@ def contacts():
 
 @app.route("/send-request", methods=["POST"])
 def send_request():
-    name = request.form.get("name", "—").strip() or "—"
-    phone = request.form.get("phone", "—").strip() or "—"
-    business = request.form.get("business", "—").strip() or "—"
+    name = request.form.get("name", "").strip()
+    phone = request.form.get("phone", "").strip()
+    business = request.form.get("business", "").strip()
     category = request.form.get("category", "").strip()
     budget = request.form.get("budget", "").strip()
     timeline = request.form.get("timeline", "").strip()
     channels = ", ".join(request.form.getlist("channels"))
-    message = request.form.get("message", "—").strip() or "—"
+    message = request.form.get("message", "").strip()
+    if not name or not phone or not message:
+        flash("Будь ласка, заповніть ім’я, контакт і коротко опишіть задачу.", "error")
+        return redirect(url_for("home", _anchor="contact-us"))
 
     contact_request = ContactRequest(
         name=name,
@@ -245,6 +285,7 @@ def send_request():
         }
     )
 
+    flash("Дякуємо! Ми зв’яжемося з вами найближчим часом.", "success")
     return redirect(url_for("home", _anchor="contact-us"))
 
 
@@ -351,8 +392,12 @@ def admin_add_main_project():
         description=request.form.get("description", ""),
         duration=request.form.get("duration", ""),
         budget=request.form.get("budget", ""),
-        link=request.form.get("link", ""),
+        link=safe_external_url(request.form.get("link", "")),
         image=image_path,
+        portfolio_category=request.form.get("portfolio_category") if request.form.get("portfolio_category") in PORTFOLIO_CATEGORIES else None,
+        instagram_url=safe_external_url(request.form.get("instagram_url", "")),
+        testimonial=request.form.get("testimonial", "").strip(),
+        is_featured=request.form.get("is_featured") == "on",
         is_active=request.form.get("is_active") == "on"
     )
 
@@ -385,7 +430,11 @@ def admin_edit_main_project(project_id):
         project.description = request.form.get("description", "")
         project.duration = request.form.get("duration", "")
         project.budget = request.form.get("budget", "")
-        project.link = request.form.get("link", "")
+        project.link = safe_external_url(request.form.get("link", ""))
+        project.portfolio_category = request.form.get("portfolio_category") if request.form.get("portfolio_category") in PORTFOLIO_CATEGORIES else None
+        project.instagram_url = safe_external_url(request.form.get("instagram_url", ""))
+        project.testimonial = request.form.get("testimonial", "").strip()
+        project.is_featured = request.form.get("is_featured") == "on"
         project.is_active = request.form.get("is_active") == "on"
 
 

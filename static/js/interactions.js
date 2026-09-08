@@ -14,3 +14,13 @@ if ("IntersectionObserver" in window) {
 } else {
   revealItems.forEach(item => item.classList.add("is-visible"));
 }
+
+document.querySelectorAll(".contact-form").forEach(form => {
+  form.addEventListener("submit", () => {
+    const button = form.querySelector("button[type='submit']");
+    if (!button || !form.checkValidity()) return;
+    button.disabled = true;
+    button.textContent = "Надсилаємо…";
+    button.setAttribute("aria-busy", "true");
+  });
+});

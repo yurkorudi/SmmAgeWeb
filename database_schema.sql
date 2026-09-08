@@ -11,6 +11,14 @@ CREATE TABLE IF NOT EXISTS contact_request (
   created_at DATETIME NOT NULL
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS main_projects_example (
+  id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(180) NOT NULL, project_type VARCHAR(120) NOT NULL,
+  description TEXT NOT NULL, duration VARCHAR(80) NOT NULL, budget VARCHAR(80) NOT NULL,
+  link VARCHAR(500), image VARCHAR(300), portfolio_category VARCHAR(32), instagram_url VARCHAR(500),
+  testimonial TEXT, is_featured BOOLEAN NOT NULL DEFAULT FALSE, is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at DATETIME NOT NULL, INDEX ix_main_projects_example_portfolio_category (portfolio_category)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 CREATE TABLE IF NOT EXISTS project_example (
   id INT AUTO_INCREMENT PRIMARY KEY,
   service_slug VARCHAR(80) NOT NULL,

@@ -33,6 +33,7 @@
                     Тип проєкту <small>(обов'язково)</small>
                     <input type="text" name="project_type" required value="{{ project.project_type }}">
                 </label>
+                <label>Категорія портфоліо<select name="portfolio_category"><option value="website" {% if project.portfolio_category == 'website' %}selected{% endif %}>Сайти</option><option value="social_media" {% if project.portfolio_category == 'social_media' %}selected{% endif %}>Соціальні мережі</option><option value="content" {% if project.portfolio_category == 'content' %}selected{% endif %}>Контент</option></select></label>
 
                 <label class="wide">
                     Опис <small>(обов'язково)</small>
@@ -50,9 +51,11 @@
                 </label>
 
                 <label>
-                    Лінка
+                    URL сайту
                     <input type="url" name="link" value="{{ project.link or '' }}">
                 </label>
+                <label>URL Instagram<input type="url" name="instagram_url" value="{{ project.instagram_url or '' }}" placeholder="https://instagram.com/..."></label>
+                <label class="wide">Відгук клієнта<textarea name="testimonial" rows="3">{{ project.testimonial or '' }}</textarea></label>
 
                 <label>
                     Зображення проєкту
@@ -70,6 +73,7 @@
                     <span>Активний (показувати на сайті)</span>
                     <input type="checkbox" name="is_active" {% if project.is_active %}checked{% endif %}>
                 </label>
+                <label class="checkbox-field"><span>Основний featured-проєкт на головній</span><input type="checkbox" name="is_featured" {% if project.is_featured %}checked{% endif %}></label>
 
                 <button class="admin-button wide" type="submit">Зберегти зміни</button>
             </form>

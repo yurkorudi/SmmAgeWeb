@@ -1,0 +1,39 @@
+{% set category = project_category(project) %}
+<article class="project-card" data-category="{{ category }}">
+  <div class="project-preview project-preview--{{ category }}">
+    {% if category == 'website' and project.link %}
+      <div class="phone-mockup">
+        <div class="phone-mockup__speaker" aria-hidden="true"></div>
+        <iframe src="{{ project.link }}" title="Попередній перегляд сайту: {{ project.title }}" loading="lazy" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p class="preview-note">Якщо попередній перегляд заблоковано сайтом, відкрийте його в новій вкладці.</p>
+    {% elif category == 'social_media' %}
+      <div class="instagram-preview">
+        <div class="instagram-preview__top"><span aria-hidden="true">◎</span><strong>Instagram</strong></div>
+        {% if project.image %}<img src="/static/{{ project.image }}" alt="{{ project.title }}">{% else %}<div class="instagram-preview__avatar" aria-hidden="true">{{ project.title[:1] }}</div>{% endif %}
+        <h3>{{ project.title }}</h3>
+        <p>Профіль клієнта</p>
+      </div>
+    {% elif project.image %}
+      <img src="/static/{{ project.image }}" alt="{{ project.title }}">
+    {% else %}
+      <div class="content-placeholder">{{ project.title }}</div>
+    {% endif %}
+  </div>
+
+  <div class="project-statistics">
+    <p class="project-label">{{ {'website': 'Сайти', 'social_media': 'Соціальні мережі', 'content': 'Контент'}[category] }}</p>
+    <h3>{{ project.title }}</h3>
+    <p>{{ project.description }}</p>
+    {% if project.testimonial %}<blockquote class="project-testimonial">“{{ project.testimonial }}”</blockquote>{% endif %}
+    <div class="project-meta">
+      <div><span>Термін</span><strong>{{ project.duration }}</strong></div>
+      <div><span>Від</span><strong>{{ project.budget }}</strong></div>
+    </div>
+    <div class="project-actions">
+      {% if category == 'website' and project.link %}<a href="{{ project.link }}" target="_blank" rel="noopener noreferrer">Відкрити сайт</a>{% endif %}
+      {% if category == 'social_media' and project.instagram_url %}<a href="{{ project.instagram_url }}" target="_blank" rel="noopener noreferrer">Відкрити Instagram</a>{% endif %}
+      <a href="/#contact-us">Обговорити схожий проєкт</a>
+    </div>
+  </div>
+</article>

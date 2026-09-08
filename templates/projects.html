@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Усі проєкти | SmmAge</title>
+  <link rel="stylesheet" href="/static/css/base.css"><link rel="stylesheet" href="/static/css/header.css"><link rel="stylesheet" href="/static/css/homepage.css"><link rel="stylesheet" href="/static/css/footer.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,400,500,700,900&display=swap" rel="stylesheet">
+</head>
+<body class="fade homepage-page"><canvas id="c"></canvas>{% include 'header.html' %}
+<main><section class="section-block projects-page">
+  <div class="section-heading"><p>Портфоліо</p><h1 class="section-title">Усі проєкти</h1></div>
+  <nav class="project-filters" aria-label="Фільтр проєктів">
+    <button type="button" class="active" data-filter="website">Сайти</button><button type="button" data-filter="social_media">Соц. мережі</button><button type="button" data-filter="content">Контент</button>
+  </nav>
+  <div class="project-list project-catalog">
+    {% for project in main_projects %}{% include '_project_card.html' %}{% else %}<p class="empty-projects">Тут скоро з’являться наші найкращі кейси.</p>{% endfor %}
+  </div>
+</section></main>
+{% include 'footer.html' %}<script src="/static/js/animation.js"></script><script src="/static/js/anchor.js"></script><script src="/static/js/interactions.js"></script><script src="/static/js/projects.js"></script>
+</body></html>

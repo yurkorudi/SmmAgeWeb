@@ -116,66 +116,15 @@
         <h2 class="section-title" data-i18n="projects.title">Our projects</h2>
       </div>
 
-      <div class="projects-layout">
-        <aside class="comments">
-          <h3 data-i18n="comments.title">User comments</h3>
-
-          <article class="comment">
-            <div class="user">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/3840px-User-avatar.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="">
-              <h4 data-i18n="comments.first.name">Марія</h4>
-            </div>
-            <p data-i18n="comments.first.text">Команда швидко зрозуміла наш стиль і створила відповідний веб-сайт для продажу квітів. Було багато правок і дзвінків, але роботу виконали на високому рівні.</p>
-          </article>
-
-          <article class="comment">
-            <div class="user">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/3840px-User-avatar.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="">
-              <h4 data-i18n="comments.second.name">Олексій</h4>
-            </div>
-            <p data-i18n="comments.second.text">Після запуску лендінгу стало простіше пояснювати послугу й отримувати заявки.</p>
-          </article>
-        </aside>
-
-        <div class="project-list">
-          {% if main_projects %}
-            {% for project in main_projects %}
-            <article class="project-card">
-              {% if project.image %}
-              <div class="project-img">
-                <img src="/static/{{ project.image }}" alt="{{ project.title }}">
-              </div>
-              {% endif %}
-
-              <div class="project-statistics">
-                <p class="project-label">{{ project.project_type }}</p>
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-                
-                <div class="project-meta">
-                  <div><span data-i18n="project.duration.label">Термін</span><strong>{{ project.duration }}</strong></div>
-                  <div><span data-i18n="project.price.label">Від</span><strong>{{ project.budget }}</strong></div>
-                </div>
-                
-                <div class="project-actions">
-                  {% if project.link %}
-                    <a href="{{ project.link }}" target="_blank" rel="noopener noreferrer" data-i18n="project.order">Переглянути сайт</a>
-                  {% else %}
-                    <a href="#contact-us" data-i18n="project.order">Замовити схожий</a>
-                  {% endif %}
-                </div>
-              </div>
-            </article>
-            {% endfor %}
-          {% else %}
-            <p style="text-align: center; color: #888; padding: 20px;">Тут скоро з'являться наші найкращі кейси.</p>
-          {% endif %}
-        </div>
+      <div class="project-list featured-project">
+        {% if featured_project %}{% set project = featured_project %}{% include '_project_card.html' %}{% else %}<p class="empty-projects">Тут скоро з’являться наші найкращі кейси.</p>{% endif %}
       </div>
+      <div class="projects-cta"><a href="/projects" class="cta">Дивитись всі проєкти</a></div>
     </section>
 
     <section id="contact-us" class="contact-us reveal">
       <h2 class="section-title" data-i18n="contact.title">Обговорити проєкт</h2>
+      {% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<p class="form-message form-message--{{ category }}" role="status">{{ message }}</p>{% endfor %}{% endwith %}
       <form class="contact-form" method="POST" action="/send-request">
         <div class="form-row">
           <div class="form-group">
@@ -184,56 +133,24 @@
           </div>
 
           <div class="form-group">
-            <input type="tel" name="phone" required placeholder=" ">
-            <label data-i18n="contact.phone">Телефон / Telegram</label>
+            <input type="text" name="phone" required placeholder=" " autocomplete="tel">
+            <label>Телефон / Telegram / Instagram / email</label>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <input type="text" name="business" placeholder=" ">
-            <label data-i18n="contact.business">Ніша / бізнес</label>
-          </div>
-
-          <div class="form-group">
+        <div class="form-row"><div class="form-group">
             <select name="category" aria-label="Project category">
-              <option value="" data-i18n="contact.category.empty">Оберіть категорію</option>
-              <option value="smm" data-i18n="contact.category.smm">SMM</option>
-              <option value="website" data-i18n="contact.category.website">Сайт / лендінг</option>
-              <option value="content" data-i18n="contact.category.content">Контент</option>
-              <option value="branding" data-i18n="contact.category.branding">Брендинг</option>
+              <option value="">Що вас цікавить?</option><option value="website">Сайт</option><option value="store">Інтернет-магазин</option><option value="smm">SMM</option><option value="content">Створення контенту</option><option value="ads">Реклама</option><option value="other">Інше</option>
             </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <select name="budget" aria-label="Project budget">
-              <option value="" data-i18n="contact.budget.empty">Орієнтовний бюджет</option>
-              <option value="100-300">$100-300</option>
-              <option value="300-700">$300-700</option>
-              <option value="700+">$700+</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <select name="timeline" aria-label="Project timeline">
-              <option value="" data-i18n="contact.timeline.empty">Коли стартуємо?</option>
-              <option value="now" data-i18n="contact.timeline.now">Якнайшвидше</option>
-              <option value="month" data-i18n="contact.timeline.month">Протягом місяця</option>
-              <option value="planning" data-i18n="contact.timeline.planning">Поки плануємо</option>
-            </select>
-          </div>
-        </div>
+          </div></div>
 
         <div class="form-group">
           <textarea name="message" rows="4" required placeholder=" "></textarea>
           <label data-i18n="contact.message">Коротко про задачу</label>
         </div>
 
-        <button type="submit" class="submit-btn" data-i18n="contact.submit">Надіслати заявку</button>
-
-        <div class="form-success" data-i18n="contact.success">Дякуємо! Ми зв'яжемось з вами найближчим часом.</div>
+        <button type="submit" class="submit-btn">Хочу обговорити проєкт</button>
+        <p class="alternative-contact">Не хочете заповнювати форму? <a href="https://t.me/smmage_official" target="_blank" rel="noopener noreferrer">Telegram</a> · <a href="mailto:smmageofficialpage@gmail.com">email</a> · <a href="tel:+380671112233">зателефонувати</a></p>
       </form>
     </section>
   </main>

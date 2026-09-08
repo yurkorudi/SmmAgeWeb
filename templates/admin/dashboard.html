@@ -39,9 +39,10 @@
           </label>
 
           <label>
-            Тип проєкту <small>(обов'язково)</small>
+            Тип проєкту <small>(обов'язково, для підпису)</small>
             <input type="text" name="project_type" required placeholder="Website / Booking">
           </label>
+          <label>Категорія портфоліо <small>(для фільтрів)</small><select name="portfolio_category"><option value="website">Сайти</option><option value="social_media">Соціальні мережі</option><option value="content">Контент</option></select></label>
 
           <label class="wide">
             Опис проєкту <small>(обов'язково)</small>
@@ -59,9 +60,11 @@
           </label>
 
           <label>
-            Лінка
+            URL сайту
             <input type="url" name="link" placeholder="https://...">
           </label>
+          <label>URL Instagram<input type="url" name="instagram_url" placeholder="https://instagram.com/..."></label>
+          <label class="wide">Відгук клієнта <small>(необов'язково)</small><textarea name="testimonial" rows="3" placeholder="Короткий відгук для картки кейсу"></textarea></label>
 
           <label>
             Зображення проєкту
@@ -73,6 +76,7 @@
             <span>Показувати на сайті</span>
             <input type="checkbox" name="is_active" checked>
           </label>
+          <label class="checkbox-field"><span>Основний featured-проєкт на головній</span><input type="checkbox" name="is_featured"></label>
 
           <button class="admin-button wide" type="submit">Додати на головну</button>
         </form>
@@ -156,6 +160,7 @@
                 <th>Термін</th>
                 <th>Зображення</th>
                 <th>Активний</th>
+                <th>Featured</th>
                 <th>Дії</th>
               </tr>
             </thead>
@@ -174,6 +179,7 @@
                     {% endif %}
                   </td>
                   <td>{{ "так" if item.is_active else "ні" }}</td>
+                  <td>{{ "так" if item.is_featured else "ні" }}</td>
                   <td>
 
                     <a href="/admin/main-project/edit/{{ item.id }}">Ред.</a>
@@ -185,7 +191,7 @@
                 </tr>
               {% else %}
                 <tr>
-                  <td colspan="7">Проєктів для головної поки немає.</td>
+                  <td colspan="8">Проєктів для головної поки немає.</td>
                 </tr>
               {% endfor %}
             </tbody>

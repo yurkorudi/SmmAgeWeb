@@ -9,7 +9,7 @@ header {
 
 .navbar {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
   width: 100%;
@@ -23,7 +23,7 @@ header {
   flex-direction: column;
   flex-shrink: 0;
   margin-left: -2px;
-  transform: translateY(4px);
+  transform: none;
   color: white;
   text-decoration: none;
   line-height: 1;
@@ -32,7 +32,7 @@ header {
 
 .logo:hover {
   opacity: 0.82;
-  transform: translateY(2px);
+  transform: translateY(-1px);
 }
 
 .logo-row {
@@ -71,7 +71,7 @@ header {
   justify-content: flex-end;
   gap: 22px;
   min-width: 0;
-  padding-top: 15px;
+  padding-top: 0;
 }
 
 .nav-links {
@@ -107,6 +107,20 @@ header {
   align-items: center;
   gap: 4px;
 }
+
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 8px;
+  color: #fff;
+  font: 500 12px 'Montserrat', sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.header-cta:hover { background: #fff; color: #000; }
 
 .lang-btn {
   min-width: 43px;
@@ -153,6 +167,7 @@ header {
   .nav-panel {
     gap: 14px;
   }
+  .header-cta { min-height: 46px; padding: 0 20px; font-size: 14px; }
 
   .nav-links {
     gap: 14px;

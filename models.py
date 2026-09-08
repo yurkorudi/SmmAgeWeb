@@ -40,6 +40,12 @@ class MainProjectExample(db.Model):
     budget = db.Column(db.String(80), nullable=False)
     link = db.Column(db.String(500))
     image = db.Column(db.String(300))
+    # ``link`` is the existing website URL.  These fields describe how the
+    # project is presented in the portfolio without duplicating it.
+    portfolio_category = db.Column(db.String(32), nullable=True, index=True)
+    instagram_url = db.Column(db.String(500))
+    testimonial = db.Column(db.Text)
+    is_featured = db.Column(db.Boolean, default=False, nullable=False)
     
 
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
