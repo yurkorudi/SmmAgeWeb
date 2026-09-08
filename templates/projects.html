@@ -10,11 +10,11 @@
 <main><section class="section-block projects-page">
   <div class="section-heading"><p>Портфоліо</p><h1 class="section-title">Усі проєкти</h1></div>
   <nav class="project-filters" aria-label="Фільтр проєктів">
-    <button type="button" class="active" data-filter="website">Сайти</button><button type="button" data-filter="social_media">Соц. мережі</button><button type="button" data-filter="content">Контент</button>
+    <a class="{{ 'active' if selected_category == 'website' else '' }}" href="/projects?category=website">Сайти</a><a class="{{ 'active' if selected_category == 'social_media' else '' }}" href="/projects?category=social_media">Соц. мережі</a><a class="{{ 'active' if selected_category == 'content' else '' }}" href="/projects?category=content">Контент</a>
   </nav>
   <div class="project-list project-catalog">
     {% for project in main_projects %}{% include '_project_card.html' %}{% else %}<p class="empty-projects">Тут скоро з’являться наші найкращі кейси.</p>{% endfor %}
   </div>
 </section></main>
-{% include 'footer.html' %}<script src="/static/js/animation.js"></script><script src="/static/js/anchor.js"></script><script src="/static/js/interactions.js"></script><script src="/static/js/projects.js"></script>
+{% include 'footer.html' %}<script src="/static/js/animation.js"></script><script src="/static/js/anchor.js"></script><script src="/static/js/interactions.js"></script>
 </body></html>

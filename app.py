@@ -18,6 +18,16 @@ except ImportError:
 
 if load_dotenv:
     load_dotenv()
+else:
+    # The production dependency is python-dotenv; this small fallback keeps
+    # local server configuration available if that package is absent.
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.exists(env_path):
+        with open(env_path, encoding="utf-8") as env_file:
+            for line in env_file:
+                if "=" in line and not line.lstrip().startswith("#"):
+                    key, value = line.strip().split("=", 1)
+                    os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 app = Flask(__name__)
 
@@ -194,13 +204,17 @@ def home():
 
 @app.route("/projects")
 def projects():
+    selected_category = request.args.get("category", "website")
+    if selected_category not in PORTFOLIO_CATEGORIES:
+        selected_category = "website"
     main_projects = []
     try:
-        main_projects = MainProjectExample.query.filter_by(is_active=True).order_by(MainProjectExample.is_featured.desc(), MainProjectExample.created_at.desc()).all()
+        main_projects = (MainProjectExample.query.filter_by(is_active=True, portfolio_category=selected_category)
+                         .order_by(MainProjectExample.is_featured.desc(), MainProjectExample.created_at.desc()).all())
     except SQLAlchemyError as exc:
         db.session.rollback()
         print("Main projects DB error:", exc)
-    return render_template("projects.html", main_projects=main_projects, project_category=project_category)
+    return render_template("projects.html", main_projects=main_projects, selected_category=selected_category, project_category=project_category)
 
 
 @app.route("/services/smm")
@@ -273,7 +287,7 @@ def send_request():
             db.session.rollback()
             print("Contact request DB error:", exc)
 
-    notify_new_request(
+    telegram_sent, telegram_error = notify_new_request(
         {
             "name": name,
             "phone": phone,
@@ -281,9 +295,15 @@ def send_request():
             "category": category,
             "budget": budget,
             "timeline": timeline,
+            "channels": channels,
             "message": message,
         }
     )
+
+    if not telegram_sent:
+        flash("Заявку збережено, але не вдалося доставити її в Telegram. Спробуйте ще раз або скористайтеся альтернативним контактом.", "error")
+        print("Request notification failed:", telegram_error)
+        return redirect(url_for("home", _anchor="contact-us"))
 
     flash("Дякуємо! Ми зв’яжемося з вами найближчим часом.", "success")
     return redirect(url_for("home", _anchor="contact-us"))

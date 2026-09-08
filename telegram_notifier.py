@@ -14,13 +14,14 @@ def _value(data, key):
 
 def build_request_message(data):
     return (
-        "<b>Нова заявка з сайту</b>\n\n"
+        "<b>🆕 Нова заявка з сайту</b>\n\n"
         f"<b>Ім'я:</b> {_value(data, 'name')}\n"
         f"<b>Телефон:</b> {_value(data, 'phone')}\n"
         f"<b>Бізнес:</b> {_value(data, 'business')}\n"
         f"<b>Категорія:</b> {_value(data, 'category')}\n"
         f"<b>Бюджет:</b> {_value(data, 'budget')}\n"
-        f"<b>Старт:</b> {_value(data, 'timeline')}\n\n"
+        f"<b>Старт:</b> {_value(data, 'timeline')}\n"
+        f"<b>Канали:</b> {_value(data, 'channels')}\n\n"
         f"<b>Повідомлення:</b>\n{_value(data, 'message')}"
     )
 
@@ -34,18 +35,23 @@ async def _send_message(token, chat_id, text):
 
 
 def notify_new_request(data):
+    """Send server-side and return (success, safe_error_message)."""
     if Bot is None:
-        print("Telegram notification skipped: install aiogram to enable bot notifications.")
-        return
+        message = "aiogram is not installed"
+        print("Telegram notification error:", message)
+        return False, message
 
     token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
 
     if not token or not chat_id:
-        print("Telegram notification skipped: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is empty.")
-        return
+        message = "TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is empty"
+        print("Telegram notification error:", message)
+        return False, message
 
     try:
         asyncio.run(_send_message(token, chat_id, build_request_message(data)))
+        return True, None
     except Exception as exc:
         print("Telegram notification error:", exc)
+        return False, str(exc)

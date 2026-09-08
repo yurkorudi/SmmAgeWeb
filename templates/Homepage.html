@@ -144,6 +144,18 @@
             </select>
           </div></div>
 
+        <details class="contact-details">
+          <summary>Додати деталі (необов’язково)</summary>
+          <div class="form-row">
+            <label class="optional-field">Ніша / бізнес<input type="text" name="business" autocomplete="organization" placeholder="Наприклад, салон краси"></label>
+            <label class="optional-field">Орієнтовний бюджет<select name="budget"><option value="">Не визначився/-лась</option><option value="100-300">$100–300</option><option value="300-700">$300–700</option><option value="700+">$700+</option></select></label>
+          </div>
+          <div class="form-row">
+            <label class="optional-field">Коли стартуємо?<select name="timeline"><option value="">Не визначився/-лась</option><option value="now">Якнайшвидше</option><option value="month">Протягом місяця</option><option value="planning">Поки плануємо</option></select></label>
+            <fieldset class="optional-field"><legend>Зручний канал</legend><label><input type="checkbox" name="channels" value="Telegram"> Telegram</label><label><input type="checkbox" name="channels" value="Instagram"> Instagram</label><label><input type="checkbox" name="channels" value="Телефон"> Телефон</label></fieldset>
+          </div>
+        </details>
+
         <div class="form-group">
           <textarea name="message" rows="4" required placeholder=" "></textarea>
           <label data-i18n="contact.message">Коротко про задачу</label>

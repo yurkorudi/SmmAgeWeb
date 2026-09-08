@@ -6,13 +6,12 @@
         <div class="phone-mockup__speaker" aria-hidden="true"></div>
         <iframe src="{{ project.link }}" title="Попередній перегляд сайту: {{ project.title }}" loading="lazy" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
-      <p class="preview-note">Якщо попередній перегляд заблоковано сайтом, відкрийте його в новій вкладці.</p>
     {% elif category == 'social_media' %}
       <div class="instagram-preview">
         <div class="instagram-preview__top"><span aria-hidden="true">◎</span><strong>Instagram</strong></div>
         {% if project.image %}<img src="/static/{{ project.image }}" alt="{{ project.title }}">{% else %}<div class="instagram-preview__avatar" aria-hidden="true">{{ project.title[:1] }}</div>{% endif %}
         <h3>{{ project.title }}</h3>
-        <p>Профіль клієнта</p>
+        <p>{% if project.instagram_url %}@{{ project.instagram_url.rstrip('/').rsplit('/', 1)[-1] }}{% else %}Профіль клієнта{% endif %}</p>
       </div>
     {% elif project.image %}
       <img src="/static/{{ project.image }}" alt="{{ project.title }}">
