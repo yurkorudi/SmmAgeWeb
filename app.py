@@ -61,14 +61,35 @@ def safe_external_url(value):
 def project_category(project):
     if project.portfolio_category in PORTFOLIO_CATEGORIES:
         return project.portfolio_category
-    # Existing records used a free-text type; keep them visible and classify
-    # obvious values until an administrator chooses a category.
+    # Compatibility only for records created before portfolio_category was
+    # introduced.  The real database value always takes priority.
     value = (project.project_type or "").lower()
-    if any(word in value for word in ("site", "web", "landing", "сайт")):
+    if project.link or any(word in value for word in ("site", "web", "landing", "сайт")):
         return "website"
-    if any(word in value for word in ("smm", "social", "instagram", "соц")):
+    if project.instagram_url or any(word in value for word in ("smm", "social", "instagram", "соц")):
         return "social_media"
-    return "content"
+    if any(word in value for word in ("content", "контент")):
+        return "content"
+    return None
+
+
+def portfolio_projects_for_category(category):
+    """Return a server-filtered category list without silently losing legacy rows."""
+    projects = (MainProjectExample.query.filter_by(is_active=True)
+                .order_by(MainProjectExample.is_featured.desc(), MainProjectExample.created_at.desc()).all())
+    filtered_projects = []
+    for project in projects:
+        effective_category = project_category(project)
+        if effective_category is None:
+            if app.debug:
+                app.logger.warning(
+                    "Active portfolio project id=%s has no determinable portfolio category; set it in admin.",
+                    project.id,
+                )
+            continue
+        if effective_category == category:
+            filtered_projects.append(project)
+    return filtered_projects
 
 
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "AdMin")
@@ -209,8 +230,7 @@ def projects():
         selected_category = "website"
     main_projects = []
     try:
-        main_projects = (MainProjectExample.query.filter_by(is_active=True, portfolio_category=selected_category)
-                         .order_by(MainProjectExample.is_featured.desc(), MainProjectExample.created_at.desc()).all())
+        main_projects = portfolio_projects_for_category(selected_category)
     except SQLAlchemyError as exc:
         db.session.rollback()
         print("Main projects DB error:", exc)
