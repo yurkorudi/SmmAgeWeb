@@ -24,3 +24,37 @@ document.querySelectorAll(".contact-form").forEach(form => {
     button.setAttribute("aria-busy", "true");
   });
 });
+
+const mobilePreviewWidth = 390;
+const mobilePreviewHeight = 844;
+
+function resizeWebsitePreviews() {
+  document.querySelectorAll(".phone-screen").forEach(screen => {
+    const viewport = screen.querySelector(".website-viewport");
+    const iframe = screen.querySelector(".website-iframe");
+    if (!viewport || !iframe) return;
+
+    const availableWidth = screen.clientWidth;
+    const availableHeight = screen.clientHeight;
+    if (!availableWidth || !availableHeight) return;
+
+    const scaleX = availableWidth / mobilePreviewWidth;
+    const scaleY = availableHeight / mobilePreviewHeight;
+    const scale = Math.min(scaleX, scaleY);
+
+    iframe.style.setProperty("--scale", scale);
+    viewport.style.width = `${mobilePreviewWidth * scale}px`;
+    viewport.style.height = `${mobilePreviewHeight * scale}px`;
+  });
+}
+
+resizeWebsitePreviews();
+window.addEventListener("load", resizeWebsitePreviews);
+window.addEventListener("resize", resizeWebsitePreviews);
+
+if ("ResizeObserver" in window) {
+  const websitePreviewObserver = new ResizeObserver(resizeWebsitePreviews);
+  document.querySelectorAll(".phone-screen").forEach(screen => {
+    websitePreviewObserver.observe(screen);
+  });
+}

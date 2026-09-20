@@ -732,7 +732,9 @@ h4 {
 .project-preview > img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; }
 .phone-mockup { position: relative; width: clamp(155px, 14vw, 190px); aspect-ratio: 9 / 18.25; padding: 20px 8px 12px; overflow: hidden; border: 7px solid #1b1b1d; border-radius: 29px; background: #111; box-shadow: 0 20px 45px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.2); }
 .phone-mockup__speaker { position: absolute; z-index: 1; top: 7px; left: 50%; width: 55px; height: 5px; border-radius: 99px; background: #313136; transform: translateX(-50%); }
-.phone-mockup iframe { width: 100%; height: 100%; border: 0; overflow: hidden; background: #fff; pointer-events: none; }
+.phone-screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 18px; background: #fff; }
+.website-viewport { position: absolute; top: 0; left: 0; overflow: hidden; max-width: 100%; max-height: 100%; }
+.website-iframe { position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0; background: #fff; transform: scale(var(--scale, 1)); transform-origin: top left; }
 .project-preview--website { position: relative; }
 .instagram-preview { width: min(300px, 88%); padding: 18px; border: 1px solid rgba(255,255,255,.18); border-radius: 16px; background: linear-gradient(145deg, rgba(131,58,180,.42), rgba(253,29,29,.22), rgba(252,176,69,.27)); text-align: center; font-family: 'Montserrat', sans-serif; }
 .instagram-preview__top { display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,.75); font-size: 13px; }.instagram-preview__top span { font-size: 27px; }

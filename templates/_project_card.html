@@ -4,7 +4,11 @@
     {% if category == 'website' and project.link %}
       <div class="phone-mockup">
         <div class="phone-mockup__speaker" aria-hidden="true"></div>
-        <iframe src="{{ project.link }}" title="Статичний попередній перегляд сайту: {{ project.title }}" loading="lazy" scrolling="no" tabindex="-1" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <div class="phone-screen">
+          <div class="website-viewport">
+            <iframe class="website-iframe" src="{{ project.link }}" title="Статичний попередній перегляд сайту: {{ project.title }}" loading="lazy" scrolling="yes" tabindex="-1" sandbox="allow-forms allow-popups allow-scripts allow-same-origin" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
       </div>
     {% elif category == 'social_media' %}
       <div class="instagram-preview">
