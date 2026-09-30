@@ -27,7 +27,7 @@ def build_request_message(data):
         f"<b>Бюджет:</b> {_value(data, 'budget')}\n"
         f"<b>Старт:</b> {_value(data, 'timeline')}\n"
         f"<b>Канали:</b> {_value(data, 'channels')}\n\n"
-        f"<b>Повідомлення:</b>\n{_value(data, 'message')}"
+        f"<b>Повідомлення:</b>\n{msg_trans}"
     )
 
 
