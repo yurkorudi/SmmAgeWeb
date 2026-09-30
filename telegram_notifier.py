@@ -17,7 +17,7 @@ def _value(data, key):
 
 
 def build_request_message(data):
-    msg_trans = tranlate_to_uk(f"{_value(data, 'message')}")
+    msg_trans = tranlate_to_uk(data.get('message'))
     return (
         "<b>🆕 Нова заявка з сайту</b>\n\n"
         f"<b>Ім'я:</b> {_value(data, 'name')}\n"
